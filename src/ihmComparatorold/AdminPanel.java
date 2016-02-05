@@ -1,4 +1,4 @@
-package ihmComparator;
+package ihmComparatorold;
 
 import javax.swing.JPanel;
 

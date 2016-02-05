@@ -1,4 +1,4 @@
-package ihmComparator;
+package ihmComparatorold;
 
 
 public class CritInfoPanel extends CompInfoPanel{

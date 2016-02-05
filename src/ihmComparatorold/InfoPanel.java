@@ -1,4 +1,4 @@
-package ihmComparator;
+package ihmComparatorold;
 
 import java.lang.reflect.Field;
 
@@ -8,7 +8,7 @@ public class InfoPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	public InfoPanel(String[] criterions){
-		// Récupération du nom de chaque attribut
+		// Rï¿½cupï¿½ration du nom de chaque attribut
 			Field[] field;
 			String[] fname_array;
 			try {

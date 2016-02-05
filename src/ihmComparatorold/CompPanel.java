@@ -1,4 +1,4 @@
-package ihmComparator;
+package ihmComparatorold;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
