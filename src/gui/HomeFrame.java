@@ -32,6 +32,7 @@ public class HomeFrame extends GUIMainFrame{
 				// TODO Auto-generated method stub
 				hp.setVisible(false);
 				add(ap, BorderLayout.CENTER);
+            	setTitle("Le Hoatton");
 			}
 			
 		});
@@ -87,6 +88,7 @@ public class HomeFrame extends GUIMainFrame{
 				if(choice == JOptionPane.NO_OPTION){
 					up.setVisible(false);
 					ap.setVisible(true);
+	            	setTitle("Le Hoatton");
 				}
 				
 				

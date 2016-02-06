@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -14,7 +15,8 @@ public class AuthPanel extends JPanel{
 	public AuthPanel(){
 		buser = new JButton("Comparateur");
 		badmin = new JButton("Administration");
-		
+		buser.setPreferredSize(new Dimension(200,40));
+		badmin.setPreferredSize(new Dimension(200,40));
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.CENTER;

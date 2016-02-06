@@ -1,8 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -14,7 +12,6 @@ public class UserPanel extends JPanel {
 		add(bp,BorderLayout.SOUTH);
 	}
 	
-	@SuppressWarnings("unused")
 	public ButtonPanel getBP(){
 		return bp;
 	}
