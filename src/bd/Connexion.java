@@ -2,6 +2,7 @@ package bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -91,6 +92,31 @@ public class Connexion {
 			e.printStackTrace();
 		}
 		return name;
+	}
+	
+	public int getEditorByName(String nomEditeur)
+	{
+		ResultSet res = query1("SELECT idEditeur FROM Editors WHERE nomEditeur='"+nomEditeur+"'");
+
+		int id = 0;
+		try {
+			if(!res.next())
+			{
+				insertEditor(nomEditeur);
+				res = query1("SELECT idEditeur FROM Editors WHERE nomEditeur='"+nomEditeur+"'");
+			}
+				id = res.getInt("idEditeur");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	public void insertEditor(String nomEditeur){
+		try {
+			statement2.executeUpdate("INSERT INTO Editors (nomEditeur) VALUES ('"+nomEditeur+"')");
+		} catch (SQLException e) {e.printStackTrace();}
 	}
 	
 	public ArrayList<TreeMap<String, String>> getAccessoriesById(Integer item)
@@ -237,17 +263,13 @@ public class Connexion {
 				SDescription desc = new SDescription(offres.getString("description")); 
 				
 				SEditor edit = new SEditor(getEditorById(offres.getInt("numEditeur")));
-				System.out.println(offres);
-				SMark mark = new SMark((float) 15.2);//new SMark((float)offres.getDouble("note"));
+				SMark mark = new SMark((float) offres.getDouble("note"));
 				
 				Calendar cal = Calendar.getInstance();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				try {
 					cal.setTime(sdf.parse(offres.getString("dateSortie")));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				} catch (ParseException e) {e.printStackTrace();}
 				
 				SReleaseDate  rd = new SReleaseDate(cal);
 				
@@ -294,5 +316,65 @@ public class Connexion {
 		return supplies;
 	}
 	
-	//public get
+	public void deleteSupplyById(int id){ try {
+		statement1.executeUpdate("DELETE FROM Supplies WHERE idOffre="+id);
+		} catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	public void insertSupply(Supply s, int qtite){
+		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+		int numEditeur = getEditorByName(s.getEditor());
+		String query = "INSERT INTO Supplies (titre, description, prix, note, styleJeu, dateSortie, difficulte, modePaiement, dureeVie, modeJeu, lienImage, numEditeur, quantite) "+
+						"VALUES ('"+
+							s.getTitle()+"','"+
+							s.getDescription()+"',"+
+							s.getPrice()+","+
+							s.getMark()+",'"+
+							s.getGameStyle()+"','"+
+							format1.format(s.getReleaseDate().getTime())+"','"+
+							s.getDifficulty()+"','"+
+							s.getBuyMethod()+"','"+
+							s.getLifeTime()+"','"+
+							s.getGameType()+"','"+
+							s.getImage()+"',"+
+							numEditeur+","+
+							qtite+
+						")";
+		try {
+			PreparedStatement statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+			int affectedRow = statement.executeUpdate();
+			if(affectedRow == 0){
+	            throw new SQLException("Creating supply failed, no rows affected.");
+	        }
+			try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	            	s.setIdOffre((generatedKeys.getInt(1)));
+	            }else {throw new SQLException("Creating supply failed, no ID obtained.");}
+	        }
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		
+	}
+	
+	public int getIdAcessoryByName(String nomAccessoire){
+		String query = "SELECT idAccessoire FROM Acessories WHERE nomAccesoire='"+nomAccessoire+"'";
+		ResultSet res = query1(query);
+		int retour = -1;
+		try {
+			if (res.next())
+				retour = res.getInt("idAccessoire");
+		} catch (SQLException e) {e.printStackTrace();}
+		return retour;
+	}
+	
+	public int getIdSupportByName(String nomSupport){
+		String query = "SELECT idSupport FROM Supports WHERE nomSupport='"+nomSupport+"'";
+		ResultSet res = query1(query);
+		int retour = -1;
+		try {
+			if (res.next())
+				retour = res.getInt("idSupport");
+		} catch (SQLException e) {e.printStackTrace();}
+		return retour;
+	}
 }

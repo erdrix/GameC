@@ -68,6 +68,7 @@ public class Supply implements Comparable<Supply>{
 	public TreeMap<String, ArrayList<TreeMap<String, String>>>getAccessories(){return acce.getAccessories();}
 	public float getPrice(){return price.getPrice();}
 	public int getIdOffre(){return idOffre;}
+	public String getImage(){return urlImg;}
 	
 	public void setTitle(String value){title.setTitle(value);};
 	public void setDescription(String value){desc.setDescription(value);}
@@ -85,6 +86,8 @@ public class Supply implements Comparable<Supply>{
 	public void addSupport(TreeMap<String, String> value){gs.addEquipement(value);}
 	public void deleteSupport(TreeMap<String, String> value){gs.deleteEquipement(value);}
 	public void setPrice(float value){price.setPrice(value);}
+	public void setIdOffre(int value){idOffre = value;}
+	public void setImage(String value){urlImg=value;}
 		
 		// METHODES
 	/**
