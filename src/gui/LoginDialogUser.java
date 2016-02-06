@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
  
 @SuppressWarnings("serial")
-public class LoginDialog extends JDialog {
+public class LoginDialogUser extends JDialog {
  
     private JTextField tfUsername;
     private JPasswordField pfPassword;
@@ -16,7 +16,7 @@ public class LoginDialog extends JDialog {
     private JButton btnCancel;
     private boolean succeeded;
  
-    public LoginDialog(Frame parent) {
+    public LoginDialogUser(Frame parent) {
         super(parent, "Connexion", true);
         //
         JPanel panel = new JPanel(new GridBagLayout());
@@ -54,14 +54,10 @@ public class LoginDialog extends JDialog {
         	 
             public void actionPerformed(ActionEvent e) {
                 if (Login.user_authenticate(getUsername(), getPassword())) {
-                    JOptionPane.showMessageDialog(LoginDialog.this,
-                            "Bonjour " + getUsername() + "!",
-                            "Connexion réussie",
-                            JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(LoginDialog.this,
+                    JOptionPane.showMessageDialog(LoginDialogUser.this,
                             "Nom d'utilisateur ou mot de passe incorrect",
                             "Connexion échouée",
                             JOptionPane.ERROR_MESSAGE);
@@ -84,7 +80,7 @@ public class LoginDialog extends JDialog {
         JPanel bp = new JPanel();
         bp.add(btnLogin);
         bp.add(btnCancel);
- 
+
         getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(bp, BorderLayout.PAGE_END);
  
