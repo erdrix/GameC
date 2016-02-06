@@ -96,12 +96,14 @@ public class Main {
 		s6.put("type", "ConsoleSalon");s6.put("nomEditeur", "Microsoft"); s6.put("nomSupport", "Xbox360");
 		TreeMap<String, String>s7 = new TreeMap<>();
 		s7.put("type", "ConsoleSalon");s7.put("nomEditeur", "Microsoft"); s7.put("nomSupport", "XboxOne");
+		supports = new ArrayList<>();
 		supports.add(s1);supports.add(s2);supports.add(s3);supports.add(s4);supports.add(s5);supports.add(s6);supports.add(s7);
 		
 		a2 = new TreeMap<>();
 		a2.put("type", "Manette");a2.put("nomEditeur", "Microsoft"); a2.put("nomAccessoire", "XboxOne");
 		a3 = new TreeMap<>();
 		a3.put("type", "Manette");a3.put("nomEditeur", "Microsoft"); a3.put("nomAccessoire", "Xbox360");
+		accessories = new ArrayList<>();
 		accessories.add(a2); accessories.add(a3);
 		
 		Supply nouv = new Supply(
@@ -121,8 +123,9 @@ public class Main {
 				new SGameSupport(supports),
 				new SAccessory(accessories)
 				);
-		//connexion.insertSupply(nouv,10);
-		connexion.deleteSupplyById(3);
+		//connexion.deleteSupplyById(4);
+		connexion.insertSupply(nouv,10);
+		
 		connexion.close();
 	}
 }

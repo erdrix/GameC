@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
 import java.util.TreeMap;
 
 import supply.*;
@@ -222,13 +223,8 @@ public class Connexion {
 		ResultSet res = query1("SELECT numStyle FROM StyleStories SS WHERE numOffre ="+indice);
 		try {
 			while(res.next())
-			{
 				retour.add(res.getInt("numStyle"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (SQLException e) {e.printStackTrace();}
 		return retour;
 	}
 	
@@ -353,11 +349,75 @@ public class Connexion {
 	        }
 		} catch (SQLException e) {e.printStackTrace();}
 		
+		// Accessoires
+		TreeMap<String, ArrayList<TreeMap<String, String>>> accessories = s.getAccessories();
+		Set<String> keys = accessories.keySet();
+		int id;
+		for(String key : keys){
+			for(TreeMap<String, String> elmt : accessories.get(key)){
+				if(elmt.containsKey("nomAccessoire")){
+					id = getIdAccessoryByName(elmt.get("nomAccessoire"));
+					if(id != -1)
+						this.insertJoueAvec(s.getIdOffre(), id);
+				}
+			}
+		}
 		
+		// Supports
+		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getSupports();
+		keys = supports.keySet();
+		for(String key : keys){
+			for(TreeMap<String, String> elmt : supports.get(key)){
+				if(elmt.containsKey("nomSupport")){
+					id = getIdSupportByName(elmt.get("nomSupport"));
+					if(id != -1)
+						this.insertJoueSur(s.getIdOffre(), id);
+				}
+			}
+		}
+		
+		// style d'histoire
+		String[] styleStories = s.getStyleType();
+		for(String sS : styleStories)
+		{
+			id = getIdStoriesByName(sS);
+			if(id != -1)
+				insertStyleStories(s.getIdOffre(), id);
+		}
 	}
 	
-	public int getIdAcessoryByName(String nomAccessoire){
-		String query = "SELECT idAccessoire FROM Acessories WHERE nomAccesoire='"+nomAccessoire+"'";
+	public int getIdStoriesByName(String nomStyle)
+	{
+		String query = "SELECT idStyle FROM TypeStories WHERE nomStyle = '"+nomStyle+"'";
+		ResultSet res = query1(query);
+		int retour = -1;
+		try {
+			if (res.next())
+				retour = res.getInt("idStyle");
+		} catch (SQLException e) {e.printStackTrace();}
+		return retour;
+	}
+	
+	public void insertStyleStories(int numOffre, int numStyle)
+	{
+		String query = "INSERT INTO StyleStories (numStyle, numOffre) VALUES ("+numStyle+","+numOffre+")";
+		try {statement1.executeUpdate(query);} catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	public void insertJoueAvec(int numOffre, int numAccessoire)
+	{
+		String query = "INSERT INTO JoueAvec (numAccessoire, numOffre) VALUES ("+numAccessoire+","+numOffre+")";
+		try {statement1.executeUpdate(query);} catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	public void insertJoueSur(int numOffre, int numSupport)
+	{
+		String query = "INSERT INTO JoueSur (numSupport, numOffre) VALUES ("+numSupport+","+numOffre+")";
+		try {statement1.executeUpdate(query);} catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	public int getIdAccessoryByName(String nomAccessoire){
+		String query = "SELECT idAccessoire FROM Accessories WHERE nomAccessoire='"+nomAccessoire+"'";
 		ResultSet res = query1(query);
 		int retour = -1;
 		try {
