@@ -1,56 +1,68 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class HomeFrame extends GUIMainFrame{
 
-	private JLabel hometext;
-	private JLabel desctext;
-	private JButton homebutton;
+
+	private static HomePanel hp;
+	private static AuthPanel ap;
+	private static UserPanel up;
+	private static AdminPanel adp;
 	
 	public HomeFrame(){
 		super();
-		setLayout(new BorderLayout() );
+		setLayout(new BorderLayout());
 		
-		// Création des éléments à afficher
-		hometext = new JLabel("Comparateur de Jeux-Vidéos");
-		hometext.setFont(new Font("",1,20));
-		desctext = new JLabel("Créé par Alexandre Guitton et Jordan Hoareau");
-		homebutton = new JButton("Démarrer");
-		JPanel jp = new JPanel();
-		jp.setLayout(new GridBagLayout());
-	
+
+		setJMenuBar(new GUIMenu());
+		hp = new HomePanel();
+		ap = new AuthPanel();
+       	up = new UserPanel();
+       	adp = new AdminPanel();
+		add(hp,BorderLayout.CENTER);
+		hp.homebutton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				hp.setVisible(false);
+				add(ap, BorderLayout.CENTER);
+			}
+			
+		});
 		
-	    JPanel jg = new JPanel();
-	    jg.setLayout(new BoxLayout(jg, BoxLayout.PAGE_AXIS));
-	    
-	    // Ajout des panels pour centrer verticalement/horizontalement
-		// le contenu
-	    
-	    // Titre
-		JPanel jht = new JPanel();
-		jht.add(hometext);
-		jg.add(jht);
-		
-		// Créé
-		JPanel jdt = new JPanel();
-		jdt.add(desctext);
-		jg.add(jdt);
-		
-		// Bouton de l'ambiance
-		JPanel jhb = new JPanel();
-		jhb.add(homebutton);
-		jg.add(jhb);
-		jp.add(jg);
-		add(jp,BorderLayout.CENTER);
+		ap.buser.addActionListener(
+            new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+                    LoginDialog loginDlg = new LoginDialog(new JFrame());
+                    loginDlg.setVisible(true);
+                    // if logon successfully
+                    if(loginDlg.isSucceeded()){
+                       	ap.setVisible(false);
+                       	up.setVisible(true);
+                    }
+				}
+            });;		
+    	ap.badmin.addActionListener(
+            new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+                    LoginDialog loginDlg = new LoginDialog(new JFrame());
+                    loginDlg.setVisible(true);
+                    // if logon successfully
+                    if(loginDlg.isSucceeded()){
+                       	ap.setVisible(false);
+                       	adp.setVisible(true);
+                    }
+				}
+            });;
 		
 		
 		
