@@ -39,7 +39,7 @@ public class GUIMenu extends JMenuBar{
 				gbc.weighty = 1;
 				jp.add(new JLabel	("Comparateur de Jeux-Vidéos - Projet POO 2016",JLabel.CENTER),gbc);
 				jp.add(new JLabel	("Alexandre Guitton | Jordan Hoareau",JLabel.CENTER),gbc);
-				jp.add(new JLabel	("Comparaison de Jeux entre une demande et des offres stockées en DB",JLabel.CENTER),gbc);
+				jp.add(new JLabel	("Comparer des jeux à partir d'une demande et d'offres stockées dans une base de données",JLabel.CENTER),gbc);
 				jp.add(new JLabel   ("Version 1.0 - Dernière édition le 06/02/2016",JLabel.CENTER),gbc);
 				JOptionPane.showMessageDialog(aprop, jp, "À propos", JOptionPane.INFORMATION_MESSAGE);
 				

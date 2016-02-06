@@ -1,13 +1,18 @@
 package gui;
 
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class UserPanel extends JPanel {
-	private JLabel usertext;
+	private ButtonPanel bp;
 	public UserPanel(){
-		usertext = new JLabel("ADMINISTRATION");
-		add(usertext);
+		setLayout(new BorderLayout());
+		bp = new ButtonPanel();
+		add(bp,BorderLayout.SOUTH);
+	}
+	
+	public ButtonPanel getBP(){
+		return bp;
 	}
 }
