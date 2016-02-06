@@ -56,14 +56,14 @@ public class LoginDialog extends JDialog {
                 if (Login.user_authenticate(getUsername(), getPassword())) {
                     JOptionPane.showMessageDialog(LoginDialog.this,
                             "Bonjour " + getUsername() + "!",
-                            "Login",
+                            "Connexion réussie",
                             JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(LoginDialog.this,
-                            "Invalid username or password",
-                            "Login",
+                            "Nom d'utilisateur ou mot de passe incorrect",
+                            "Connexion échouée",
                             JOptionPane.ERROR_MESSAGE);
                     // reset username and password
                     tfUsername.setText("");
