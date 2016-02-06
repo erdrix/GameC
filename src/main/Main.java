@@ -109,6 +109,7 @@ public class Main {
 		Supply nouv = new Supply(
 				-1,
 				"http://image.jeuxvideo.com/medias-sm/142247/1422469608-7141-jaquette-avant.jpg",
+				10,
 				new STitle("The Witcher 3 :Wild Hunt"),
 				new SDescription("The Witcher 3 : Wild Hunt est un Action-RPG se déroulant dans un monde ouvert. Troisième épisode de la série du même nom, inspirée des livres du polonais Andrzej Sapkowski, cet opus relate la fin de l histoire de Geralt de Riv."),
 				new SEditor("CD Projekt"),
@@ -123,9 +124,12 @@ public class Main {
 				new SGameSupport(supports),
 				new SAccessory(accessories)
 				);
-		//connexion.deleteSupplyById(4);
-		connexion.insertSupply(nouv,10);
-		
+		a3 = new TreeMap<>();
+		a3.put("type", "Manette");a3.put("nomEditeur", "Microsoft"); a3.put("nomAccessoire", "Xbox360");
+		ArrayList<Supply> supplies = connexion.getSupply();
+		supplies.get(2).deleteAccessory(a3);
+		supplies.get(2).setMark(15);
+		connexion.updateSupply(supplies.get(2));
 		connexion.close();
 	}
 }

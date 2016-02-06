@@ -255,6 +255,7 @@ public class Connexion {
 			{
 				int idOffre = offres.getInt("idOffre");
 				STitle title = new STitle(offres.getString("titre")); 
+				int quantite = offres.getInt("quantite");
 				
 				SDescription desc = new SDescription(offres.getString("description")); 
 				
@@ -301,7 +302,7 @@ public class Connexion {
 						accessories.add(a);
 				SAccessory acce =  new SAccessory(accessories);
 				
-				Supply offre = new Supply(idOffre, lienImg, title, desc, edit, mark, rd, gt, bm, diff, lt, gst, st ,gs, acce);
+				Supply offre = new Supply(idOffre, lienImg, quantite, title, desc, edit, mark, rd, gt, bm, diff, lt, gst, st ,gs, acce);
 			
 				supplies.add(offre);
 			}
@@ -317,7 +318,7 @@ public class Connexion {
 		} catch (SQLException e) {e.printStackTrace();}
 	}
 	
-	public void insertSupply(Supply s, int qtite){
+	public void insertSupply(Supply s){
 		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
 		int numEditeur = getEditorByName(s.getEditor());
 		String query = "INSERT INTO Supplies (titre, description, prix, note, styleJeu, dateSortie, difficulte, modePaiement, dureeVie, modeJeu, lienImage, numEditeur, quantite) "+
@@ -334,7 +335,7 @@ public class Connexion {
 							s.getGameType()+"','"+
 							s.getImage()+"',"+
 							numEditeur+","+
-							qtite+
+							s.getQuantite()+
 						")";
 		try {
 			PreparedStatement statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
@@ -386,6 +387,66 @@ public class Connexion {
 		}
 	}
 	
+	public void updateSupply(Supply s)
+	{
+		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+		int numEditeur = getEditorByName(s.getEditor());
+		String query = "UPDATE Supplies SET "+
+							"titre = '"+ s.getTitle()+
+							"', description = '"+s.getDescription()+
+							"', prix = '"+s.getPrice()+
+							"', note = '"+s.getMark()+
+							"', styleJeu = '"+s.getGameStyle()+
+							"', dateSortie = '"+format1.format(s.getReleaseDate().getTime())+
+							"', difficulte = '"+s.getDifficulty()+
+							"', modePaiement = '"+s.getBuyMethod()+
+							"', dureeVie = '"+s.getLifeTime()+
+							"', modeJeu = '"+s.getGameType()+
+							"', lienImage = '"+s.getImage()+
+							"', numEditeur = '"+numEditeur+
+							"', quantite = "+s.getQuantite()+
+						" WHERE idOffre = "+s.getIdOffre();
+		System.out.println(query);
+		try {statement1.executeUpdate(query);} catch (SQLException e) {e.printStackTrace();}
+		
+		// Accessoires
+		TreeMap<String, ArrayList<TreeMap<String, String>>> accessories = s.getAccessories();
+		try {statement1.executeUpdate("DELETE FROM JoueAvec WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
+		Set<String> keys = accessories.keySet();
+		int id;
+		for(String key : keys){
+			for(TreeMap<String, String> elmt : accessories.get(key)){
+				if(elmt.containsKey("nomAccessoire")){
+					id = getIdAccessoryByName(elmt.get("nomAccessoire"));
+					if(id != -1)
+						this.insertJoueAvec(s.getIdOffre(), id);
+				}
+			}
+		}
+		
+		// Supports
+		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getSupports();
+		try {statement1.executeUpdate("DELETE FROM JoueSur WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
+		keys = supports.keySet();
+		for(String key : keys){
+			for(TreeMap<String, String> elmt : supports.get(key)){
+				if(elmt.containsKey("nomSupport")){
+					id = getIdSupportByName(elmt.get("nomSupport"));
+					if(id != -1)
+						this.insertJoueSur(s.getIdOffre(), id);
+				}
+			}
+		}
+		
+		// style d'histoire
+		String[] styleStories = s.getStyleType();
+		for(String sS : styleStories)
+		{
+			id = getIdStoriesByName(sS);
+			if(id != -1)
+				insertStyleStories(s.getIdOffre(), id);
+		}
+	}
 	public int getIdStoriesByName(String nomStyle)
 	{
 		String query = "SELECT idStyle FROM TypeStories WHERE nomStyle = '"+nomStyle+"'";

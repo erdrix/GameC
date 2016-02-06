@@ -11,6 +11,7 @@ public class Supply implements Comparable<Supply>{
 		// ATTRIBUTS
 	protected int idOffre;
 	protected String urlImg;
+	protected int quantite;
 	protected int score;			// Score de l'offre par rapport à une demande.
 	protected int length_C;			// Nombre de critère présent dans l'offre.
 	private Score<?> criterion[];	// Ensemble des critères correspondant à l'offre.
@@ -30,13 +31,14 @@ public class Supply implements Comparable<Supply>{
 	private SAccessory acce;
 	
 		// CONSTRUCTEUR
-	public Supply(int id, String urlImg, STitle title, SDescription desc, SEditor edit, SMark mark, SReleaseDate rd, SGameType gm, SBuyMethod bm, SDifficulty diff, SLifeTime lt, SGameStyle gst, SStoryType st, SGameSupport gs, SAccessory acce)
+	public Supply(int id, String urlImg,int quantite, STitle title, SDescription desc, SEditor edit, SMark mark, SReleaseDate rd, SGameType gm, SBuyMethod bm, SDifficulty diff, SLifeTime lt, SGameStyle gst, SStoryType st, SGameSupport gs, SAccessory acce)
 	{
 		length_C = 13;
 		criterion = new Score[length_C];		
 		price = bm.getPrice();
 		this.idOffre = id;
 		this.urlImg = urlImg;
+		this.quantite = quantite;
 		this.title = title;
 		this.desc  = desc;
 		this.edit  = edit;
@@ -69,6 +71,7 @@ public class Supply implements Comparable<Supply>{
 	public float getPrice(){return price.getPrice();}
 	public int getIdOffre(){return idOffre;}
 	public String getImage(){return urlImg;}
+	public int getQuantite(){return quantite;}
 	
 	public void setTitle(String value){title.setTitle(value);};
 	public void setDescription(String value){desc.setDescription(value);}
@@ -88,6 +91,7 @@ public class Supply implements Comparable<Supply>{
 	public void setPrice(float value){price.setPrice(value);}
 	public void setIdOffre(int value){idOffre = value;}
 	public void setImage(String value){urlImg=value;}
+	public void setQuantite(int value){quantite = value;}
 		
 		// METHODES
 	/**
