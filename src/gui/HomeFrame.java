@@ -1,11 +1,16 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import bd.Connexion;
 
 @SuppressWarnings("serial")
 public class HomeFrame extends GUIMainFrame{
@@ -15,17 +20,21 @@ public class HomeFrame extends GUIMainFrame{
 	private static AuthPanel ap;
 	private static UserPanel up;
 	private static AdminPanel adp;
+	private GUIMainFrame me;
+	private Connexion connexion;
 	
-	public HomeFrame(){
+	public HomeFrame(Connexion c){
 		super();
+		connexion = c;
 		setLayout(new BorderLayout());
 		
+		GUIMainFrame me = this;
 
 		setJMenuBar(new GUIMenu());
 		hp = new HomePanel();
 		ap = new AuthPanel();
        	up = new UserPanel();
-       	adp = new AdminPanel();
+       //adp = new AdminPanel();
 		add(hp,BorderLayout.CENTER);
 		hp.homebutton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -65,8 +74,9 @@ public class HomeFrame extends GUIMainFrame{
                     // if logon successfully
                     if(loginDlg.isSucceeded()){
                        	ap.setVisible(false);
-                       	adp.setVisible(true);
-                       	add(adp,BorderLayout.CENTER);
+                       	adp = new AdminPanel(me.getSize(), connexion);
+                       	adp.setVisible(true);                     	
+                       	add(adp);
                     	setTitle("Le Hoatton - Administration");
                     }
 				}
@@ -97,7 +107,8 @@ public class HomeFrame extends GUIMainFrame{
 		setVisible(true);		
 	}
 	public static void main(String [] args){
-		new HomeFrame();
+		Connexion connexion = new Connexion();
+		new HomeFrame(connexion);
 		
 	}
 }

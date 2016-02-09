@@ -75,5 +75,6 @@ public class CriterionPanel extends  JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return"";
 	}
 }

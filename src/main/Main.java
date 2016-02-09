@@ -7,6 +7,7 @@ import bd.Connexion;
 import comparator.Comparator;
 import supply.*;
 import demand.*;
+import gui.HomeFrame;
 public class Main {
 
 	public static void main(String[] args) {
@@ -29,8 +30,11 @@ public class Main {
 		SGameSupport.Init(connexion.getSupportsById(-1));
 		
 		SStoryType.Init(connexion.getTypeStoriesById(-1));		
+		connexion.close();
+		new HomeFrame(connexion);
 		
-		Calendar cal1 = Calendar.getInstance();
+		
+		/*Calendar cal1 = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
 		
 		cal1.set(Calendar.YEAR,2008 );
@@ -129,7 +133,6 @@ public class Main {
 		ArrayList<Supply> supplies = connexion.getSupply();
 		supplies.get(2).deleteAccessory(a3);
 		supplies.get(2).setMark(15);
-		connexion.updateSupply(supplies.get(2));
-		connexion.close();
+		*/
 	}
 }
