@@ -34,14 +34,13 @@ public class CriterionPanel extends  JPanel {
 		for(String s : infos){
 			String type = getType(s); System.out.println(type);
 			try {
-				Constructor<?> constructors = Class.forName("gui."+type+"Panel").getDeclaredConstructor( (new String()).getClass() );
+				Constructor<?> constructors = Class.forName("gui."+type+"Panel").getDeclaredConstructor( (new TreeMap<>()).getClass() );
 				Field[] fields = Class.forName("gui.CriterionPanel").getDeclaredFields();
 				for(Field f : fields){
 						Object field_value = f.get(f.getClass());
 						for(TreeMap<String,String> value : (ArrayList<TreeMap<String,String>>) field_value){
 							if(s.equals(value.get("classe"))){
-								String label = value.get("label");
-								Component c = (Component) constructors.newInstance(label);
+								Component c = (Component) constructors.newInstance(value);
 								add(c);
 							}
 						}
@@ -129,16 +128,19 @@ public class CriterionPanel extends  JPanel {
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DMark");
 		elmt.put("label", "Note : ");
+		elmt.put("methods", "getLimits");
 		Intervalle.add(elmt);
 		
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DPrice");
 		elmt.put("label", "Prix :");
+		elmt.put("methods", "getLimits");
 		Intervalle.add(elmt);
 		
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DReleaseDate");
-		elmt.put("label", "Date de sortie : ");
+		elmt.put("label", "Année : ");
+		elmt.put("methods", "getLimits");
 		Intervalle.add(elmt);
 		
 		// Instanciation des Binary

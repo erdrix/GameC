@@ -10,7 +10,7 @@ public class UserPanel extends JPanel {
 	public UserPanel(){
 		setLayout(new BorderLayout());
 		bp = new ButtonPanel();
-		String[] main_infos = {"DTitle","DEditor","DMark","DTitle","DTitle","DTitle"};
+		String[] main_infos = {"DTitle","DEditor","DMark","DReleaseDate","DTitle","DTitle","DTitle","DTitle","DTitle","DTitle"};
 		String[] aux_infos = {"DDescription"};
 		cp = new InformationsPanel(main_infos,aux_infos);
 		add(cp,BorderLayout.CENTER);

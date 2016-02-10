@@ -11,4 +11,8 @@ public class SPrice extends IntervalleScore{
 	
 	public float getPrice(){return val;}
 	public void setPrice(float value){val = value;}
+	public static int[] getLimits(){
+		int limits[] = {0,100};
+		return limits;
+		}
 }
