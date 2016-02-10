@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,7 +17,6 @@ public class HomeFrame extends GUIMainFrame{
 	private static AuthPanel ap;
 	private static UserPanel up;
 	private static AdminPanel adp;
-	private GUIMainFrame me;
 	private Connexion connexion;
 	
 	public HomeFrame(Connexion c){

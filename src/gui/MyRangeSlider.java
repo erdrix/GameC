@@ -1,4 +1,4 @@
-package ihmComparatorold;
+package gui;
 
 import com.jidesoft.swing.RangeSlider;
 

@@ -13,9 +13,9 @@ public class InformationsPanel extends JPanel {
 		setLayout(new GridLayout(2,1));
 		
 		
-		main_panel = new CriterionPanel("Informations principales",m,a);
+		main_panel = new CriterionPanel("Informations principales",m);
 		add(main_panel);
-		aux_panel = new CriterionPanel("Informations complémentaires",m,a);
+		aux_panel = new CriterionPanel("Informations complémentaires",a);
 		add(aux_panel);
 		
 		
