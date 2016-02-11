@@ -11,4 +11,8 @@ public class SMark extends IntervalleScore{
 	
 	public float getMark(){return val;}
 	public void setMark(float value){val = value;}
+	public static int[] getLimits(){
+		int limits[] = {0,20};
+		return limits;
+		}
 }

@@ -1,82 +1,187 @@
 package gui;
 
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class CriterionPanel extends  JPanel {
-	@SuppressWarnings("unused")
-	private static final String[] Keyword = 	{	"DTitle",
-													"DDescription",
-													"DEditor"
-												};	
-	@SuppressWarnings("unused")
-	private static final String[] Ecart =  		{	"DLifeTime",
-													"DDifficulty"
-												};	
-	@SuppressWarnings("unused")
-	private static final String[] Intervalle = 	{	"DMark",
-													"DPrice",
-													"DReleaseDate"
-												};
-	@SuppressWarnings("unused")
-	private static final String[] Binary =		{	"DBuyMethod",
-													"DGameType"
-												};
-	@SuppressWarnings("unused")
-	private static final String[] Multiple = 	{	"DAccessory",
-													"DStoryType",
-													"DGameSupport"
-												};
-	@SuppressWarnings("unused")
-	private static final String[] Style = 		{	"DGameStyle" 
-												};
+	private static ArrayList<TreeMap<String,String>> Keyword;	
+	private static ArrayList<TreeMap<String,String>> Ecart;	
+	private static ArrayList<TreeMap<String,String>> Intervalle;
+	private static ArrayList<TreeMap<String,String>> Binary;
+	private static ArrayList<TreeMap<String,String>> Multiple;
+	private static ArrayList<TreeMap<String,String>> Style;
 	public CriterionPanel(){
 		super();
 	}
 	
-	public CriterionPanel(String name, String[] main_infos, String[] aux_infos){
-		for(String s : main_infos){
-			getType(s);
+	@SuppressWarnings("unchecked")
+	public CriterionPanel(String name, String[] infos){
+		TitledBorder tb;
+		tb = BorderFactory.createTitledBorder(name);
+		setBorder(tb);
+		setLayout(new GridLayout(infos.length/2,2));
+		init_arrays();
+		for(String s : infos){
+			String type = getType(s); System.out.println(type);
+			try {
+				Constructor<?> constructors = Class.forName("gui."+type+"Panel").getDeclaredConstructor( (new TreeMap<>()).getClass() );
+				Field[] fields = Class.forName("gui.CriterionPanel").getDeclaredFields();
+				for(Field f : fields){
+						Object field_value = f.get(f.getClass());
+						for(TreeMap<String,String> value : (ArrayList<TreeMap<String,String>>) field_value){
+							if(s.equals(value.get("classe"))){
+								Component c = (Component) constructors.newInstance(value);
+								add(c);
+							}
+						}
+				}
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String getType(String s){
+		Field[] fields;
 		try {
-			Field [] fields = Class.forName("gui.CriterionPanel").getDeclaredFields();
-			Field[] crit_type = new Field[fields.length];
-			int i = 0;
-			for(Field f : fields)	{
-				if(f.getType().toString().equals("class [Ljava.lang.String;")) crit_type[i]=f;
-				
+			fields = Class.forName("gui.CriterionPanel").getDeclaredFields();
+			for(Field f : fields){
+					Object field_value = f.get(f.getClass());
+					for(TreeMap<String,String> value : (ArrayList<TreeMap<String,String>>) field_value){
+						if(value.get("classe").equals(s)){
+							String type = f.toString();
+							type = type.replace("private static java.util.ArrayList gui.CriterionPanel.","");
+							return type;
+						}
+					}
 			}
-			
-			for(Field f : crit_type){
-
-				//System.out.println(f.getType().toString());
-				try {
-					String[] crit_values = (String[]) f.get(new CriterionPanel());
-					for(String st : (String[])crit_values)
-						if(st.equals(s)) return f.getName();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		
 		return"";
+	}
+	
+	
+	public void init_arrays(){
+
+		TreeMap<String,String> elmt = new TreeMap<>();
+		
+		// Instanciation des Keyword
+		Keyword = new ArrayList<>();
+		elmt.put("classe", "DTitle");
+		elmt.put("label", "Titre du jeu : ");
+		Keyword.add(elmt);
+		
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DEditor");
+		elmt.put("label", "Editeur : ");
+		Keyword.add(elmt);
+		
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DDescription");
+		elmt.put("label", "Mots-clés : ");
+		Keyword.add(elmt);
+		
+		// Instanciation des Ecart
+		Ecart = new ArrayList<>();
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DLifeTime");
+		elmt.put("label", "Durée de vie : ");
+		elmt.put("methods", "getOptions");
+		Ecart.add(elmt);
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DDifficulty");
+		elmt.put("label", "Difficulté : ");
+		elmt.put("methods", "getOptions");
+		Ecart.add(elmt);
+		
+		// Instanciation des Intervalle
+		Intervalle = new ArrayList<>();
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DMark");
+		elmt.put("label", "Note : ");
+		elmt.put("methods", "getLimits");
+		Intervalle.add(elmt);
+		
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DPrice");
+		elmt.put("label", "Prix :");
+		elmt.put("methods", "getLimits");
+		Intervalle.add(elmt);
+		
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DReleaseDate");
+		elmt.put("label", "Année : ");
+		elmt.put("methods", "getLimits");
+		Intervalle.add(elmt);
+		
+		// Instanciation des Binary
+		Binary = new ArrayList<>();
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DBuyMethod");
+		elmt.put("label", "Paiement : ");
+		elmt.put("methods", "getOptions");
+		Binary.add(elmt);
+		
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DGameType");
+		elmt.put("label", "Mode de jeu : ");
+		elmt.put("methods", "getOptions");
+		Binary.add(elmt);
+		
+		// Instanciation des Multiple
+		Multiple = new ArrayList<>();
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DAccessory");
+		elmt.put("label", "Accessoires");
+		Multiple.add(elmt);
+
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DStoryType");
+		elmt.put("label", "Type d'histoire : ");		
+		Multiple.add(elmt);
+		
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DGameSupport");
+		elmt.put("label", "Supports de jeu : ");
+		Multiple.add(elmt);
+		
+		// Instanciation des Style
+		Style = new ArrayList<>();
+		elmt = new TreeMap<>();
+		elmt.put("classe", "DGameStyle");
+		elmt.put("label", "Genre : ");
+		elmt.put("methods", "getOptions");
+		Style.add(elmt);
 	}
 }

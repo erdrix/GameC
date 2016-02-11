@@ -13,8 +13,8 @@ public class GUIMainFrame extends JFrame{
 		setLayout(new BorderLayout() );
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
-		int w = 500;
-		int h = 400;
+		int w = 600;
+		int h = 600;
 		int x = (int)d.getWidth()/2 - w/2;
 		int y = (int)d.getHeight()/2 - h/2;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

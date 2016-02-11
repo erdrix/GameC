@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,7 +17,6 @@ public class HomeFrame extends GUIMainFrame{
 	private static AuthPanel ap;
 	private static UserPanel up;
 	private static AdminPanel adp;
-	private GUIMainFrame me;
 	private Connexion connexion;
 	
 	public HomeFrame(Connexion c){
@@ -33,7 +29,7 @@ public class HomeFrame extends GUIMainFrame{
 		setJMenuBar(new GUIMenu());
 		hp = new HomePanel();
 		ap = new AuthPanel();
-       	//up = new UserPanel();
+       	up = new UserPanel();
 		add(hp,BorderLayout.CENTER);
 		hp.homebutton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {

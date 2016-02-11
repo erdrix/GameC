@@ -3,6 +3,8 @@ package ihmComparatorold;
 
 import javax.swing.JPanel;
 
+import gui.MyRangeSlider;
+
 
 public class IntervallePanel extends JPanel{
 	/**
@@ -15,10 +17,10 @@ public class IntervallePanel extends JPanel{
 	public IntervallePanel(String classname){
 		if(classname.equals("DPrice")){
 			mrs = new MyRangeSlider(0,100,25,50);
-			mrs.setMajorTickSpacing(25);
+			mrs.setMajorTickSpacing(25);	
 			mrs.setMinorTickSpacing(5);
 			mrs.setPaintTicks(true);
-			mrs.setPaintLabels(true);		
+			mrs.setPaintLabels(true);	
 			add(mrs);
 		}
 		
