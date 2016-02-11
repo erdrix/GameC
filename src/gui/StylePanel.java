@@ -3,7 +3,6 @@ package gui;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +18,7 @@ public class StylePanel extends JPanel {
 	private JLabel jl;
 	private JComboBox<String> jcb;
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	public StylePanel(TreeMap<String,String> type){
 		SGameStyle.Init(
 				new Couple<String, String>("Fiction Intéractive", "Aventure, Sous-Aventure"),
