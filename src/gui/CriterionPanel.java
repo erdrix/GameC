@@ -117,10 +117,12 @@ public class CriterionPanel extends  JPanel {
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DLifeTime");
 		elmt.put("label", "Durée de vie : ");
+		elmt.put("methods", "getOptions");
 		Ecart.add(elmt);
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DDifficulty");
 		elmt.put("label", "Difficulté : ");
+		elmt.put("methods", "getOptions");
 		Ecart.add(elmt);
 		
 		// Instanciation des Intervalle
@@ -147,12 +149,14 @@ public class CriterionPanel extends  JPanel {
 		Binary = new ArrayList<>();
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DBuyMethod");
-		elmt.put("label", "Type de paiement : ");
+		elmt.put("label", "Paiement : ");
+		elmt.put("methods", "getOptions");
 		Binary.add(elmt);
 		
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DGameType");
 		elmt.put("label", "Mode de jeu : ");
+		elmt.put("methods", "getOptions");
 		Binary.add(elmt);
 		
 		// Instanciation des Multiple
@@ -177,6 +181,7 @@ public class CriterionPanel extends  JPanel {
 		elmt = new TreeMap<>();
 		elmt.put("classe", "DGameStyle");
 		elmt.put("label", "Genre : ");
+		elmt.put("methods", "getOptions");
 		Style.add(elmt);
 	}
 }

@@ -21,6 +21,7 @@ public class SBuyMethod extends BinaryScore{
 	 * @param prix : prix du jeu.
 	 * @param c    : forme de paiement pour ce jeu.c
 	 */
+	public SBuyMethod(String c){super(c, options);}
 	public SBuyMethod(SPrice prix, String c){ super(c, options); price = prix;}
 
 		// METHODES
