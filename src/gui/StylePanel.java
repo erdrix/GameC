@@ -43,32 +43,16 @@ public class StylePanel extends JPanel {
 			int i = 0 ;
 			int size = 0;
 			for(Map.Entry<String, String> style : options.entrySet()){
-				String[] combo_items = style.getValue().split(", ");
-				size = size + combo_items.length;
+				size = size ++;
 			}
 			System.out.println("size : "+size);
-			items = new String[size];
+			items = new String[6];
 			i = 0;
 			for(Map.Entry<String, String> style : options.entrySet()){
-				String[] combo_items = style.getKey().split(", ");
-				for(String s : combo_items){
-					items[i] = s;
-					i++;
-				}
+				items[i] = style.getKey();
+				i++;				
 			}
-			HashSet<String> hs = new HashSet<>();
-			i=0;
-			for(String s : items){
-				hs.add(s);
-				items[i]=null;
-				i++;
-			}
-			items = new String[hs.size()];
-			i = 0;
-			for(String s : hs){				
-				items[i]=s;
-				i++;
-			}
+			
 			jcb = new JComboBox<String>(items);
 			add(jcb);
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
