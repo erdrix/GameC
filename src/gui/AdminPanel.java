@@ -47,21 +47,10 @@ public class AdminPanel extends JPanel {
 		setLayout(new BorderLayout());
 	    head = new JPanel();
 	    head.setPreferredSize(new Dimension((int) d.getWidth()-2,60));
-		JPanel header = new JPanel();
+	    int headerSize = (int) ((80*head.getPreferredSize().getWidth()-2)/100);
 		
-		// Définition du header.
-		header.setBackground(new Color(181,94,94));
-		int headerSize = (int) ((80*head.getPreferredSize().getWidth()-2)/100);
-		header.setLayout(new FlowLayout());
-		JLabel title = new JLabel("Administration des offres");
-		title.setFont(new Font("Segoe UI", Font.PLAIN, 24));
-		header.setPreferredSize(new Dimension( headerSize,60));
-		title.setForeground(Color.WHITE);
-		title.setPreferredSize(new Dimension (headerSize, 50));
-		title.setHorizontalAlignment(JLabel.CENTER);
-		title.setVerticalAlignment(JLabel.CENTER);
-		header.add(title);
-		
+	    // Définition du header.
+	    HeaderPanel header = new HeaderPanel("Administration des offres", new Color(181,94,94), headerSize);				
 		
 		// Définition du retour
 		JPanel retour = new JPanel();
@@ -95,16 +84,16 @@ public class AdminPanel extends JPanel {
 	    body.setPreferredSize(new Dimension((int) d.getWidth()-25, supplies.size()*270));
 	    body.setLayout(new GridLayout(supplies.size(),1));
 	    connexion.close();
-	    for(Supply s : supplies)
-	    {
-	    	//Supply s = supplies.get(2);
-	    	SupplyPanel offre = new SupplyPanel(s, d);body.add(offre);
-	    	
-	    }
+	    for(Supply s : supplies){SupplyPanel offre = new SupplyPanel(s, d, connexion);body.add(offre);}
 
+	    JButton add = new JButton("AJOUTER");
+	    add.setPreferredSize(new Dimension((int) (d.getWidth()-2),28));
+	    add.setHorizontalAlignment(JLabel.CENTER);
+	    add.setVerticalAlignment(JLabel.CENTER);
+	    add.setBackground(new Color(128,214, 160)); add.setForeground(Color.WHITE);
+	    add.setFont(new Font("Segoe UI", Font.BOLD, 14));add.setFocusPainted(false);
 	    JScrollPane sSupplies = new JScrollPane(body);
-	    add(head, BorderLayout.NORTH); add(sSupplies, BorderLayout.CENTER); 
-	    
+	    add(head, BorderLayout.NORTH); add(sSupplies, BorderLayout.CENTER); add(add, BorderLayout.SOUTH);
 	    //On positionne maintenant ces trois lignes en colonne
 	    
 	    /*

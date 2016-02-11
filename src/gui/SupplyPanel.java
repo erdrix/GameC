@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
@@ -21,21 +24,26 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import bd.Connexion;
 import supply.Supply;
 
-public class SupplyPanel extends JPanel{
+public class SupplyPanel extends JPanel {
 	
 	private Supply supply;
 	private Dimension d;
 	private Color couleur;
-	public SupplyPanel(Supply s, Dimension dim)
+	private JPanel me;
+	private Connexion connexion;
+	public SupplyPanel(Supply s, Dimension dim, Connexion c)
 	{
+		me = this;
 		supply = s;
 		d= dim;
 		couleur = new Color(238,238,238);
-		
+		connexion = c;
 		// L'objet servant à positionner les composants
 		GridBagConstraints gbc = new GridBagConstraints();
 		
@@ -114,7 +122,7 @@ public class SupplyPanel extends JPanel{
 		add(lGenre, gbc);
 		
 		// Affichage du bouton de suppression
-		JButton delete = new JButton("DELETE");
+		JButton delete = new JButton("SUPPRIMER");
 		delete.setFocusPainted(false);
 		delete.setForeground(Color.WHITE);
 		delete.setBackground(new Color(234, 49 ,49));
@@ -133,7 +141,7 @@ public class SupplyPanel extends JPanel{
 		add(lMode, gbc);
 		
 		// Affichage du bouton de suppression
-		JButton update = new JButton("UPDATE");
+		JButton update = new JButton("MODIFIER");
 		update.setFocusPainted(false);
 		update.setForeground(Color.WHITE);
 		update.setBackground(new Color(99, 151, 229));
@@ -164,8 +172,34 @@ public class SupplyPanel extends JPanel{
 		
 		addMouseListener(new MouseAdapter(){
 			public void mouseEntered(MouseEvent e){couleur = new Color(225,225,225); repaint();}
-			public void mouseExited(MouseEvent e ){couleur = new Color(238,238,238); repaint();}
+			public void mouseExited(MouseEvent e){couleur = new Color(238,238,238); repaint();}
 			
+		});
+		
+		JButton supp = new JButton("SUPPRIMER");
+		supp.setFocusPainted(false);
+		supp.setForeground(Color.WHITE);
+		supp.setBackground(new Color(234, 49 ,49));
+		JButton annuler = new JButton("ANNULER");
+		annuler.setFocusPainted(false);
+		annuler.setForeground(Color.WHITE);
+		annuler.setPreferredSize(new Dimension(80, 24));
+		
+		
+		delete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				
+				Object[] options =  new String[]{"SUPPRIMER","ANNULER"};
+				String message = "Etes vous sûr de vouloir supprimer l'offre : "+s.getTitle();
+				int i = JOptionPane.showOptionDialog(null, message, "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,options, options[1] );
+				if(i == 0) 
+				{
+					connexion.connect();
+					connexion.deleteSupplyById(s.getIdOffre());
+					connexion.close();
+				}
+			}
 		});
 	}
 	
@@ -174,7 +208,7 @@ public class SupplyPanel extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		Line2D l = new Line2D.Double(10, getHeight()-1,getWidth()-10,  getHeight()-1);
-		g2.setColor(Color.BLACK);
+		g2.setColor(new Color(78, 81, 79));
 		setBackground(couleur);
 		g2.draw(l);
 		

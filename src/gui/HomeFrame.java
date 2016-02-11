@@ -33,8 +33,7 @@ public class HomeFrame extends GUIMainFrame{
 		setJMenuBar(new GUIMenu());
 		hp = new HomePanel();
 		ap = new AuthPanel();
-       	up = new UserPanel();
-       //adp = new AdminPanel();
+       	//up = new UserPanel();
 		add(hp,BorderLayout.CENTER);
 		hp.homebutton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +81,7 @@ public class HomeFrame extends GUIMainFrame{
 				}
             });;
 		
-		up.getBP().logoutbutton.addActionListener(new ActionListener(){
+		/*up.getBP().logoutbutton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -103,7 +102,7 @@ public class HomeFrame extends GUIMainFrame{
 				
 				
 			}
-		});
+		});*/
 		setVisible(true);		
 	}
 	public static void main(String [] args){

@@ -55,7 +55,7 @@ public class CriterionPanel extends  JPanel {
 			
 			for(Field f : crit_type){
 
-				System.out.println(f.getType().toString());
+				//System.out.println(f.getType().toString());
 				try {
 					String[] crit_values = (String[]) f.get(new CriterionPanel());
 					for(String st : (String[])crit_values)
