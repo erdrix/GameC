@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.TreeMap;
 
@@ -34,8 +33,6 @@ public class EcartPanel extends JPanel {
 					Class.forName("supply."+type.get("classe").replace("DDifficulty","SDifficulty").replace("DLifeTime","SLifeTime"))
 					.getDeclaredMethod(type.get("methods"));
 			ArrayList<String> options = (ArrayList<String>) getOptions.invoke(obj);
-			HashSet<String> tri = new HashSet<>(options);
-			options = new ArrayList<String>(tri);
 			
 			js = new JSlider(0,options.size()-1);
 			Hashtable<Integer,JLabel> labelTable = new Hashtable<>();

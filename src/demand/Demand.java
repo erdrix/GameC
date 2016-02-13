@@ -6,6 +6,9 @@
 
 package demand;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import supply.DemandMethods;
@@ -40,6 +43,9 @@ public class Demand implements DemandMethods{
 	private DSale[] dsa;		// Ensemble des lieux de vente acceptés.
 
 		// CONSTRUCTUEUR
+	public Demand(){
+		
+	}
 	/**
 	 * Constructeur initialisant la demande du client avec l'ensemble des champs d'une offre (champs pouvant potentiellement être nuls)
 	 * @param title : DTitle objet contenant les mots-clefs du titre du jeu.
@@ -78,27 +84,18 @@ public class Demand implements DemandMethods{
 		for (int i=0; i < nSale; i++)
 			dsa[i] = sa[i];
 	}
-	
-		// METHODES
-	/**
-	 * A COMPLETER !!!!!!!!!
-	 */
+
+	// METHODES
 	public String getTitle()
 	{
 		return dtitle.getField();
 	}
 	
-	/**
-	 * A COMPLETER !!!!!!!!!
-	 */
 	public String getDescription()
 	{
 		return ddesc.getField();
 	}
 	
-	/**
-	 *  A COMPLETER !!!!!!
-	 */
 	public String getEditor()
 	{
 		return dedit.getField();
@@ -204,5 +201,26 @@ public class Demand implements DemandMethods{
 	public ArrayList<TreeMap<String, String>> getAccessoryEquipements()
 	{
 		return (dacce ==null)? null:dacce.getEquipements();
+	}
+	
+	public void setField(String classe, String s){
+		try {
+			//Field field = Class.forName("demand.Demand").getField("private demand.DTitle demand.Demand.dtitle");
+			Field [] fields = Class.forName("demand.Demand").getDeclaredFields();
+			for(Field f : fields){
+				if(f.toString().contains(classe)){
+					Class<?> crit_class = Class.forName("demand."+classe);
+					Constructor<?> constructors = crit_class.getDeclaredConstructor(String.class); 
+					Object criteria = constructors.newInstance(s);
+					f.setAccessible(true);
+					f.set(this,criteria);		
+				}
+			}		
+		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

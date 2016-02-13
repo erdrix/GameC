@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import demand.*;
+
 @SuppressWarnings("serial")
 public class InformationsPanel extends JPanel {
 	private CriterionPanel main_panel;
@@ -19,5 +21,12 @@ public class InformationsPanel extends JPanel {
 		add(aux_panel);
 		
 		
+	}
+
+	public Demand getValues(){
+		Demand d = new Demand();
+		d = main_panel.addValues();
+		d = aux_panel.addValues();
+		return d;
 	}
 }
