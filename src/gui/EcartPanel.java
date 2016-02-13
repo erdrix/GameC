@@ -10,12 +10,16 @@ import java.util.TreeMap;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import supply.SDifficulty;
 import supply.SLifeTime;
 
 @SuppressWarnings("serial")
 public class EcartPanel extends JPanel {
 	private JLabel jl;
+	private String classe;
 	private JSlider js;
 	@SuppressWarnings("unchecked")
 	public EcartPanel(TreeMap<String,String> type){
@@ -23,6 +27,7 @@ public class EcartPanel extends JPanel {
 		SDifficulty.Init("Débutant", "Intermédiaire", "Confirmé", "Expérimenté");
 		SLifeTime.Init("Courte", "Moyenne", "Longue", "Infinie");
 		jl = new JLabel(type.get("label"));
+		classe = type.get("classe");
 		add(jl);
 		try {
 			Constructor<?> constructors = 
@@ -47,6 +52,17 @@ public class EcartPanel extends JPanel {
 			js.setMajorTickSpacing(1);
 			js.setPaintTicks(true);
 			js.setPaintLabels(true);
+			js.addChangeListener(new ChangeListener(){
+
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					JSlider source = (JSlider) arg0.getSource();
+					int value = source.getValue();
+					System.out.println(value);
+					UserPanel.custom_demand.setField(classe, value);
+				}
+				
+			});
 			add(js);
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block

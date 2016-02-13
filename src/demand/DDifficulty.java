@@ -5,7 +5,7 @@ public class DDifficulty {
 	protected int difficulty;	// Numéro de la difficulté.
 	
 		// CONSTRUCTEUR
-	public DDifficulty(int d)
+	public DDifficulty(Integer d)
 	{
 		difficulty = d;
 	}

@@ -31,7 +31,6 @@ public class KeywordPanel extends JPanel {
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				String s = new String(jtf.getText());
-				UserPanel us = new UserPanel();
 				UserPanel.custom_demand.setField(classe, s);
 				System.out.println(s);
 			}
@@ -39,7 +38,9 @@ public class KeywordPanel extends JPanel {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+				String s = new String(jtf.getText());
+				UserPanel.custom_demand.setField(classe, s);
+				System.out.println(s);
 			}
 			
 		});

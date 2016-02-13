@@ -203,14 +203,13 @@ public class Demand implements DemandMethods{
 		return (dacce ==null)? null:dacce.getEquipements();
 	}
 	
-	public void setField(String classe, String s){
+	public void setField(String classe, Object s){
 		try {
-			//Field field = Class.forName("demand.Demand").getField("private demand.DTitle demand.Demand.dtitle");
 			Field [] fields = Class.forName("demand.Demand").getDeclaredFields();
 			for(Field f : fields){
 				if(f.toString().contains(classe)){
 					Class<?> crit_class = Class.forName("demand."+classe);
-					Constructor<?> constructors = crit_class.getDeclaredConstructor(String.class); 
+					Constructor<?> constructors = crit_class.getDeclaredConstructor(s.getClass()); 
 					Object criteria = constructors.newInstance(s);
 					f.setAccessible(true);
 					f.set(this,criteria);		
