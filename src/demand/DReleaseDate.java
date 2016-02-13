@@ -8,6 +8,12 @@ public class DReleaseDate {
 	protected Intervalle range;	// Contient l'intervalle de date de sortie.
 	
 		// CONSTRUCTEUR
+	public DReleaseDate(float d, float f){
+		range = new Intervalle(d,f);
+	}
+	public DReleaseDate(Intervalle i){
+		range = i;
+	}
 	public DReleaseDate(Calendar d, Calendar f)
 	{
 		if( d != null && f!= null)

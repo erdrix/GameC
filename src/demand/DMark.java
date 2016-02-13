@@ -11,6 +11,9 @@ public class DMark {
 	{
 		range = new Intervalle(fst, snd);
 	}
+	public DMark(Intervalle i){
+		range = i;
+	}
 		// METHODE
 	/**
 	 * Fonction retournant l'intervalle de la note voulu.
