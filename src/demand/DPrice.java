@@ -12,6 +12,10 @@ public class DPrice {
 		price = new Intervalle(f,s);
 	}
 	
+	public DPrice(Intervalle i){
+		price = i;
+	}
+	
 		// METHODE
 	/**
 	 * Fonction retournant le prix du jeu.

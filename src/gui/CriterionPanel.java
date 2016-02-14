@@ -12,6 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import demand.Demand;
+
 @SuppressWarnings("serial")
 public class CriterionPanel extends  JPanel {
 	private static ArrayList<TreeMap<String,String>> Keyword;	
@@ -91,7 +93,10 @@ public class CriterionPanel extends  JPanel {
 		return"";
 	}
 	
-	
+	public Demand addValues(){
+		Demand d = new Demand();
+		return d;
+	}
 	public void init_arrays(){
 
 		TreeMap<String,String> elmt = new TreeMap<>();

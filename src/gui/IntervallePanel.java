@@ -7,6 +7,10 @@ import java.util.TreeMap;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import supply.Intervalle;
 
 
 @SuppressWarnings("serial")
@@ -33,6 +37,21 @@ public class IntervallePanel extends JPanel{
 			js.setMinorTickSpacing(ecart/20);
 			js.setPaintTicks(true);
 			js.setPaintLabels(true);
+			js.addChangeListener(new ChangeListener(){
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					int intervalle = ecart/10;
+					JSlider source = (JSlider) arg0.getSource();
+					int value = source.getValue();
+					float min = (float)value - intervalle;
+					float max = (float)value + intervalle; 
+					System.out.println("["+min+":"+max+"]");
+					UserPanel.custom_demand.setField(type.get("classe"), new Intervalle(min,max));
+					
+					
+				}
+				
+			});
 			add(js);
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block

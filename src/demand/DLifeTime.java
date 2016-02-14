@@ -5,7 +5,7 @@ public class DLifeTime {
 	protected int time;
 	
 		// CONSTRUCTEUR
-	public DLifeTime(int t)
+	public DLifeTime(Integer t)
 	{
 		time= t;
 	}
