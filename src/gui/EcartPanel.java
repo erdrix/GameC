@@ -20,22 +20,19 @@ public class EcartPanel extends JPanel {
 	private JSlider js;
 	@SuppressWarnings("unchecked")
 	public EcartPanel(TreeMap<String,String> type){
-
-		SDifficulty.Init("Débutant", "Intermédiaire", "Confirmé", "Expérimenté");
-		SLifeTime.Init("Courte", "Moyenne", "Longue", "Infinie");
 		jl = new JLabel(type.get("label"));
 		add(jl);
 		try {
 			Constructor<?> constructors = 
-					Class.forName("supply."+type.get("classe").replace("DDifficulty","SDifficulty").replace("DLifeTime","SLifeTime"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredConstructor(String.class); 
 			Object obj = constructors.newInstance("");
 			Method getOptions = 
-					Class.forName("supply."+type.get("classe").replace("DDifficulty","SDifficulty").replace("DLifeTime","SLifeTime"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredMethod(type.get("methods"));
 			ArrayList<String> options = (ArrayList<String>) getOptions.invoke(obj);
-			HashSet<String> tri = new HashSet<>(options);
-			options = new ArrayList<String>(tri);
+			//HashSet<String> tri = new HashSet<>(options);
+			//options = new ArrayList<String>(tri);
 			
 			js = new JSlider(0,options.size()-1);
 			Hashtable<Integer,JLabel> labelTable = new Hashtable<>();

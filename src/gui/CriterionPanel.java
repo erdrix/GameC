@@ -39,7 +39,7 @@ public class CriterionPanel extends  JPanel {
 				for(Field f : fields){
 						Object field_value = f.get(f.getClass());
 						for(TreeMap<String,String> value : (ArrayList<TreeMap<String,String>>) field_value){
-							if(s.equals(value.get("classe"))){
+							if(s.equals("D"+value.get("classe"))){
 								Component c = (Component) constructors.newInstance(value);
 								add(c);
 							}
@@ -71,7 +71,7 @@ public class CriterionPanel extends  JPanel {
 			for(Field f : fields){
 					Object field_value = f.get(f.getClass());
 					for(TreeMap<String,String> value : (ArrayList<TreeMap<String,String>>) field_value){
-						if(value.get("classe").equals(s)){
+						if(s.equals("D"+value.get("classe"))){
 							String type = f.toString();
 							type = type.replace("private static java.util.ArrayList gui.CriterionPanel.","");
 							return type;
@@ -98,29 +98,29 @@ public class CriterionPanel extends  JPanel {
 		
 		// Instanciation des Keyword
 		Keyword = new ArrayList<>();
-		elmt.put("classe", "DTitle");
+		elmt.put("classe", "Title");
 		elmt.put("label", "Titre du jeu : ");
 		Keyword.add(elmt);
 		
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DEditor");
+		elmt.put("classe", "Editor");
 		elmt.put("label", "Editeur : ");
 		Keyword.add(elmt);
 		
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DDescription");
+		elmt.put("classe", "Description");
 		elmt.put("label", "Mots-clés : ");
 		Keyword.add(elmt);
 		
 		// Instanciation des Ecart
 		Ecart = new ArrayList<>();
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DLifeTime");
+		elmt.put("classe", "LifeTime");
 		elmt.put("label", "Durée de vie : ");
 		elmt.put("methods", "getOptions");
 		Ecart.add(elmt);
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DDifficulty");
+		elmt.put("classe", "Difficulty");
 		elmt.put("label", "Difficulté : ");
 		elmt.put("methods", "getOptions");
 		Ecart.add(elmt);
@@ -128,19 +128,19 @@ public class CriterionPanel extends  JPanel {
 		// Instanciation des Intervalle
 		Intervalle = new ArrayList<>();
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DMark");
+		elmt.put("classe", "Mark");
 		elmt.put("label", "Note : ");
 		elmt.put("methods", "getLimits");
 		Intervalle.add(elmt);
 		
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DPrice");
+		elmt.put("classe", "Price");
 		elmt.put("label", "Prix :");
 		elmt.put("methods", "getLimits");
 		Intervalle.add(elmt);
 		
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DReleaseDate");
+		elmt.put("classe", "ReleaseDate");
 		elmt.put("label", "Année : ");
 		elmt.put("methods", "getLimits");
 		Intervalle.add(elmt);
@@ -148,13 +148,13 @@ public class CriterionPanel extends  JPanel {
 		// Instanciation des Binary
 		Binary = new ArrayList<>();
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DBuyMethod");
+		elmt.put("classe", "BuyMethod");
 		elmt.put("label", "Paiement : ");
 		elmt.put("methods", "getOptions");
 		Binary.add(elmt);
 		
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DGameType");
+		elmt.put("classe", "GameType");
 		elmt.put("label", "Mode de jeu : ");
 		elmt.put("methods", "getOptions");
 		Binary.add(elmt);
@@ -162,24 +162,24 @@ public class CriterionPanel extends  JPanel {
 		// Instanciation des Multiple
 		Multiple = new ArrayList<>();
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DAccessory");
+		elmt.put("classe", "Accessory");
 		elmt.put("label", "Accessoires");
 		Multiple.add(elmt);
 
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DStoryType");
+		elmt.put("classe", "StoryType");
 		elmt.put("label", "Type d'histoire : ");		
 		Multiple.add(elmt);
 		
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DGameSupport");
+		elmt.put("classe", "GameSupport");
 		elmt.put("label", "Supports de jeu : ");
 		Multiple.add(elmt);
 		
 		// Instanciation des Style
 		Style = new ArrayList<>();
 		elmt = new TreeMap<>();
-		elmt.put("classe", "DGameStyle");
+		elmt.put("classe", "GameStyle");
 		elmt.put("label", "Genre : ");
 		elmt.put("methods", "getOptions");
 		Style.add(elmt);

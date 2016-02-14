@@ -18,13 +18,14 @@ public class HomeFrame extends GUIMainFrame{
 	private static UserPanel up;
 	private static AdminPanel adp;
 	private Connexion connexion;
+	private HomeFrame me;
 	
 	public HomeFrame(Connexion c){
 		super();
 		connexion = c;
 		setLayout(new BorderLayout());
 		
-		GUIMainFrame me = this;
+		me= this;
 
 		setJMenuBar(new GUIMenu());
 		hp = new HomePanel();
@@ -69,7 +70,7 @@ public class HomeFrame extends GUIMainFrame{
                     // if logon successfully
                     if(loginDlg.isSucceeded()){
                        	ap.setVisible(false);
-                       	adp = new AdminPanel(me.getSize(), connexion);
+                       	adp = new AdminPanel(me.getSize(), connexion, me);
                        	adp.setVisible(true);                     	
                        	add(adp);
                     	setTitle("Le Hoatton - Administration");
@@ -100,6 +101,23 @@ public class HomeFrame extends GUIMainFrame{
 			}
 		});*/
 		setVisible(true);		
+	}
+	public void reloadAdminPanel()
+	{
+		adp.setVisible(false);
+		remove(adp);
+		adp = new AdminPanel(me.getSize(), connexion, me);
+		adp.setVisible(true);                     	
+       	add(adp);
+       	
+	}
+	
+	public void reloadMenuPanel()
+	{
+		adp.setVisible(false);
+		up.setVisible(false);
+		hp.setVisible(false);
+		ap.setVisible(true);
 	}
 	public static void main(String [] args){
 		Connexion connexion = new Connexion();

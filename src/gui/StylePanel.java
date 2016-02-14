@@ -20,22 +20,16 @@ public class StylePanel extends JPanel {
 	
 	@SuppressWarnings({ "unchecked", "unused" })
 	public StylePanel(TreeMap<String,String> type){
-		SGameStyle.Init(
-				new Couple<String, String>("Fiction Intéractive", "Aventure, Sous-Aventure"),
-				new Couple<String, String>("Visual Novel", "Aventure, Sous-Aventure"),
-				new Couple<String, String>("Infiltration", "Action Aventure, Sous-Action, Sous-Aventure"),				new Couple<String, String>("Survival Horror", "Action Aventure, Sous-Action, Sous-Aventure"),
-				new Couple<String, String>("A-RPG", "Jeu de role, Sous-Action"),
-				new Couple<String, String>("MMORPG", "Jeu de role")
-			);
+		
 		jl = new JLabel(type.get("label"));
 		add(jl);
 		try {
 			Constructor<?> constructors = 
-					Class.forName("supply."+type.get("classe").replace("D","S"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredConstructor(String.class); 
 			Object obj = constructors.newInstance("");
 			Method getOptions = 
-					Class.forName("supply."+type.get("classe").replace("D","S"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredMethod(type.get("methods"));
 			TreeMap<String, String> options = (TreeMap<String, String>) getOptions.invoke(obj);
 			String[] items;

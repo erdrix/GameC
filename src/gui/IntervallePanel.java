@@ -19,11 +19,11 @@ public class IntervallePanel extends JPanel{
 		add(jl);		
 		try {
 			Constructor<?> constructors = 
-					Class.forName("supply."+type.get("classe").replace("DRelease","SRelease").replace("DMark","SMark").replace("DPrice", "SPrice"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredConstructor(float.class); 
 			Object obj = constructors.newInstance(0.f);
 			Method getIntervalle = 
-					Class.forName("supply."+type.get("classe").replace("DRelease","SRelease").replace("DMark", "SMark").replace("DPrice", "SPrice"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredMethod(type.get("methods"));
 			int[] limits = (int[])getIntervalle.invoke(obj);
 			

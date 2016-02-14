@@ -23,9 +23,11 @@ import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import bd.Connexion;
 import supply.Supply;
@@ -37,7 +39,8 @@ public class SupplyPanel extends JPanel {
 	private Color couleur;
 	private JPanel me;
 	private Connexion connexion;
-	public SupplyPanel(Supply s, Dimension dim, Connexion c)
+	private JFrame frame;
+	public SupplyPanel(Supply s, Dimension dim, Connexion c, HomeFrame frame)
 	{
 		me = this;
 		supply = s;
@@ -84,9 +87,21 @@ public class SupplyPanel extends JPanel {
 			
 		} catch (MalformedURLException e1) {e1.printStackTrace();} 
 		catch (IOException e) {e.printStackTrace();}
-		ImageIcon test = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(100, 142, Image.SCALE_SMOOTH));
-        JLabel image = new JLabel(test);
+		
+		ImageIcon icon;
+		if(img != null)
+		{
+			ImageIcon test = new ImageIcon(img);
+			Image imgRecup = test.getImage().getScaledInstance(100, 142, Image.SCALE_SMOOTH);
+			icon = new ImageIcon(imgRecup);
+		}else
+			icon = null;
+		
+		JLabel image = (icon != null)? new JLabel(icon): new JLabel("Vide");
 		image.setPreferredSize(new Dimension(100,142));
+		image.setHorizontalAlignment(JLabel.CENTER);
+		
+		image.setBorder(new LineBorder(new Color(35, 40, 37)));
 		//img.setBackground(Color.BLACK);
 	
 		gbc.gridx = 0;
@@ -126,7 +141,7 @@ public class SupplyPanel extends JPanel {
 		delete.setFocusPainted(false);
 		delete.setForeground(Color.WHITE);
 		delete.setBackground(new Color(234, 49 ,49));
-		delete.setPreferredSize(new Dimension(80, 24));
+		delete.setPreferredSize(new Dimension(105, 24));
 		gbc.gridx = 4;
 		gbc.gridy = 3;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -145,7 +160,7 @@ public class SupplyPanel extends JPanel {
 		update.setFocusPainted(false);
 		update.setForeground(Color.WHITE);
 		update.setBackground(new Color(99, 151, 229));
-		update.setPreferredSize(new Dimension(80, 24));
+		update.setPreferredSize(new Dimension(105, 24));
 		gbc.gridx = 4;
 		gbc.gridy = 4;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -176,16 +191,6 @@ public class SupplyPanel extends JPanel {
 			
 		});
 		
-		JButton supp = new JButton("SUPPRIMER");
-		supp.setFocusPainted(false);
-		supp.setForeground(Color.WHITE);
-		supp.setBackground(new Color(234, 49 ,49));
-		JButton annuler = new JButton("ANNULER");
-		annuler.setFocusPainted(false);
-		annuler.setForeground(Color.WHITE);
-		annuler.setPreferredSize(new Dimension(80, 24));
-		
-		
 		delete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -197,7 +202,7 @@ public class SupplyPanel extends JPanel {
 				{
 					connexion.connect();
 					connexion.deleteSupplyById(s.getIdOffre());
-					connexion.close();
+					frame.reloadAdminPanel();
 				}
 			}
 		});
