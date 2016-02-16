@@ -30,7 +30,30 @@ public class Supply implements Comparable<Supply>{
 	private SGameSupport gs;
 	private SAccessory acce;
 	
-		// CONSTRUCTEUR
+		// CONSTRUCTEURS
+	public Supply()
+	{
+		idOffre = -1;
+		length_C = 13;
+		criterion = new Score[length_C];		
+		price = new SPrice(0f);
+		this.urlImg = "";
+		this.quantite = 0;
+		this.title = new STitle("");
+		this.desc  = new SDescription("");
+		this.edit  = new SEditor("");
+		this.mark  = new SMark(0f);
+		this.rd    = new SReleaseDate(0f);
+		this.gm    = new SGameType("");
+		this.bm    = new SBuyMethod("");
+		this.diff  = new SDifficulty("");
+		this.lt    = new SLifeTime("");
+		this.gst   = new SGameStyle(""); 
+		this.st    = new SStoryType("");
+		this.gs    = new SGameSupport(null);
+		this.acce  = new SAccessory(null);
+		score = 0; 
+	}
 	public Supply(int id, String urlImg,int quantite, STitle title, SDescription desc, SEditor edit, SMark mark, SReleaseDate rd, SGameType gm, SBuyMethod bm, SDifficulty diff, SLifeTime lt, SGameStyle gst, SStoryType st, SGameSupport gs, SAccessory acce)
 	{
 		length_C = 13;

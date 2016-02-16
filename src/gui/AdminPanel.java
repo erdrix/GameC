@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,9 +21,12 @@ import supply.Supply;
 @SuppressWarnings("serial")
 public class AdminPanel extends JPanel {
 	private HeadPanel head;
-
 	private Dimension dim;
-	public AdminPanel(Dimension d, Connexion connexion, HomeFrame frame){
+	private Connexion connexion;
+	private HomeFrame frame;
+	public AdminPanel(Dimension d, Connexion c, HomeFrame f){
+		connexion = c;
+		frame = f;
 		connexion.connect();
 		ArrayList<Supply> supplies = connexion.getSupply();
 		
@@ -48,5 +53,11 @@ public class AdminPanel extends JPanel {
 	    JScrollPane sSupplies = new JScrollPane(body);
 	    add(head, BorderLayout.NORTH); add(sSupplies, BorderLayout.CENTER); add(add, BorderLayout.SOUTH);
 
+	    add.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e){
+	    		FrameSupply fs = new FrameSupply(connexion, frame, new Supply());
+	    		fs.setVisible(true);
+	    	}
+	    });
 	}
 }

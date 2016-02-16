@@ -414,12 +414,15 @@ public class Connexion {
 		try {statement1.executeUpdate("DELETE FROM JoueAvec WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
 		Set<String> keys = accessories.keySet();
 		int id;
-		for(String key : keys){
-			for(TreeMap<String, String> elmt : accessories.get(key)){
-				if(elmt.containsKey("nomAccessoire")){
-					id = getIdAccessoryByName(elmt.get("nomAccessoire"));
-					if(id != -1)
-						this.insertJoueAvec(s.getIdOffre(), id);
+		if(keys != null)
+		{
+			for(String key : keys){
+				for(TreeMap<String, String> elmt : accessories.get(key)){
+					if(elmt.containsKey("nomAccessoire")){
+						id = getIdAccessoryByName(elmt.get("nomAccessoire"));
+						if(id != -1)
+							this.insertJoueAvec(s.getIdOffre(), id);
+					}
 				}
 			}
 		}
@@ -428,23 +431,29 @@ public class Connexion {
 		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getSupports();
 		try {statement1.executeUpdate("DELETE FROM JoueSur WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
 		keys = supports.keySet();
-		for(String key : keys){
-			for(TreeMap<String, String> elmt : supports.get(key)){
-				if(elmt.containsKey("nomSupport")){
-					id = getIdSupportByName(elmt.get("nomSupport"));
-					if(id != -1)
-						this.insertJoueSur(s.getIdOffre(), id);
+		if(keys != null)
+		{
+			for(String key : keys){
+				for(TreeMap<String, String> elmt : supports.get(key)){
+					if(elmt.containsKey("nomSupport")){
+						id = getIdSupportByName(elmt.get("nomSupport"));
+						if(id != -1)
+							this.insertJoueSur(s.getIdOffre(), id);
+					}
 				}
 			}
 		}
 		
 		// style d'histoire
 		String[] styleStories = s.getStyleType();
-		for(String sS : styleStories)
+		if(styleStories != null)
 		{
-			id = getIdStoriesByName(sS);
-			if(id != -1)
-				insertStyleStories(s.getIdOffre(), id);
+			for(String sS : styleStories)
+			{
+				id = getIdStoriesByName(sS);
+				if(id != -1)
+					insertStyleStories(s.getIdOffre(), id);
+			}
 		}
 	}
 	public int getIdStoriesByName(String nomStyle)

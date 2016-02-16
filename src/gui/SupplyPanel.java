@@ -32,6 +32,7 @@ import javax.swing.border.LineBorder;
 import bd.Connexion;
 import supply.Supply;
 
+@SuppressWarnings("serial")
 public class SupplyPanel extends JPanel {
 	
 	private Supply supply;
@@ -39,12 +40,13 @@ public class SupplyPanel extends JPanel {
 	private Color couleur;
 	private JPanel me;
 	private Connexion connexion;
-	private JFrame frame;
-	public SupplyPanel(Supply s, Dimension dim, Connexion c, HomeFrame frame)
+	private HomeFrame frame;
+	public SupplyPanel(Supply s, Dimension dim, Connexion c, HomeFrame f)
 	{
 		me = this;
 		supply = s;
 		d= dim;
+		frame = f;
 		couleur = new Color(238,238,238);
 		connexion = c;
 		// L'objet servant à positionner les composants
@@ -204,6 +206,13 @@ public class SupplyPanel extends JPanel {
 					connexion.deleteSupplyById(s.getIdOffre());
 					frame.reloadAdminPanel();
 				}
+			}
+		});
+		
+		update.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				FrameSupply fs = new FrameSupply(connexion, frame, supply);
+	    		fs.setVisible(true);
 			}
 		});
 	}

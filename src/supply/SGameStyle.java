@@ -1,5 +1,6 @@
 package supply;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 import score.StyleScore;
 
@@ -13,6 +14,11 @@ public class SGameStyle extends StyleScore{
 	
 	@SafeVarargs
 	public static void Init(Couple<String, String> ...items)
+	{
+		for(Couple<String, String> c : items)
+			options.put(c.getFirst(), c.getSecond());
+	}
+	public static void Init(ArrayList<Couple<String, String>> items)
 	{
 		for(Couple<String, String> c : items)
 			options.put(c.getFirst(), c.getSecond());
