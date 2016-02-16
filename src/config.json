@@ -1,0 +1,50 @@
+{
+	"Interface": 
+		{
+			"Principal":["Title","Description","Editor","Mark","ReleaseDate","GameStyle"],
+			"Secondaire":["Difficulty","LifeTime"],
+			"Criteres":{
+				"Keyword":
+				[
+					{"classe": "Title", "label": "Titre du jeu : "},
+					{"classe": "Editor", "label":  "Editeur : "},
+					{"classe": "Description", "label": "Mots-clés : "}
+				],
+				"Ecart":
+				[
+					{"classe": "LifeTime", "label": "Durée de vie : ", "methods": ["getOptions"]},
+					{"classe": "Difficulty", "label": "Difficulté : ", "methods": ["getOptions"]}
+				],
+				"Intervalle":
+				[
+					{"classe": "Mark", "label": "Note : ", "methods": ["getLimits"]},
+					{"classe": "Price", "label": "Prix : ", "methods": ["getLimits"]},
+					{"classe": "ReleaseDate", "label": "Année : ", "methods": ["getLimits"]}
+				],
+				"Binary":
+				[
+					{"classe": "BuyMethod", "label": "Paiement : ", "methods": ["getOptions"]},
+					{"classe": "GameType", "label": "Mode de jeu : ", "methods": ["getOptions"]}
+				],
+				"Multiple":
+				[
+					{"classe": "Accessory", "label": "Accessoires : ", "methods": ["getTypeAccessories","getOptions"]},
+					{"classe": "GameSupport", "label": "Support de jeu : ", "methods": ["getTypeSupports","getOptions"]},
+					{"classe": "StoryType", "label": "Type d'histoire : ", "methods": ["getOptions"]},
+				]
+			}
+
+		},
+	"BuyMethod": ["Abonnement", "Licence", "Gratuit"],
+	"Difficulty": ["Débutant", "Intermédiaire", "Confirmé", "Expérimenté"],
+	"GameType": ["Hors Ligne", "En Ligne"],
+	"LifeTime": ["Courte", "Moyenne", "Longue", "Infinie"],
+	"GameStyle":
+	[
+		["Fiction Intéractive", "Aventure, Sous-Aventure"],
+		["Visual Novel", "Aventure, Sous-Aventure"],
+		["Infiltration", "Action Aventure, Sous-Action, Sous-Aventure"],
+		["A-RPG", "Jeu de role, Sous-Action"],
+		["MMORPG", "Jeu de role"]
+	]
+}

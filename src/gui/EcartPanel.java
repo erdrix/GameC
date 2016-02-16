@@ -35,6 +35,7 @@ public class EcartPanel extends JPanel {
 			js = new JSlider(0,options.size()-1);
 			Hashtable<Integer,JLabel> labelTable = new Hashtable<>();
 			int i = 0;
+			System.out.println(classe);
 			for(String s : options){
 				//float index = (float)i/options.size();
 				System.out.println(s+" à " +(int) i);

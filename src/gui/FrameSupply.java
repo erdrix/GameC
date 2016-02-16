@@ -26,6 +26,7 @@ import supply.SGameType;
 import supply.SLifeTime;
 import supply.Supply;
 
+@SuppressWarnings("serial")
 public class FrameSupply extends JFrame{
 	
 	private Connexion connexion;

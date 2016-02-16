@@ -40,7 +40,7 @@ public class Main {
 			
 			// Initialisation LifeTime
 			JSONArray lt = (JSONArray) jsonObject.get("LifeTime");
-			m = new String[lt.size()]; gt.toArray(m);
+			m = new String[lt.size()]; lt.toArray(m);
 			SLifeTime.Init(m);
 			
 			// Initialisation GameStyle
