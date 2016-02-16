@@ -35,7 +35,7 @@ public class Main {
 			
 			// Initialisation GameType
 			JSONArray gt = (JSONArray) jsonObject.get("GameType");
-			m = new String[bm.size()]; gt.toArray(m);
+			m = new String[gt.size()]; gt.toArray(m);
 			SGameType.Init(m);
 			
 			// Initialisation LifeTime

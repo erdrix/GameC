@@ -1,6 +1,10 @@
-/main/
-/supply/
+/img/
 /gui/
+<<<<<<< HEAD
 /SKeywordPanel.class
 /bd/
 /config.json
+=======
+/main/
+/demand/
+>>>>>>> branch 'master' of https://github.com/erdrix/GameC.git
