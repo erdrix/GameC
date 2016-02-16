@@ -18,7 +18,7 @@ import supply.Intervalle;
 /* Titre - Description - Editeur - Prix -
 Note du jeu - Date de sortie - Mode de jeu - 
 Mode de paiement - Difficulté - Durée de vie - 
-Style de l'histoire - Support de jeu - Jouable avec accessoires - Lieu d'achat - Type de jeu*/ 
+Style de l'histoire - Support de jeu - Jouable avec accessoires - Lieu d'achat - Type de jeu */ 
 
 public class Demand implements DemandMethods{
 		// ATTRIBUTS
@@ -208,7 +208,7 @@ public class Demand implements DemandMethods{
 			Field [] fields = Class.forName("demand.Demand").getDeclaredFields();
 			for(Field f : fields){
 				if(f.toString().contains(classe)){
-					Class<?> crit_class = Class.forName("demand."+classe);
+					Class<?> crit_class = Class.forName("demand.D"+classe);
 					Constructor<?> constructors = crit_class.getDeclaredConstructor(s.getClass()); 
 					Object criteria = constructors.newInstance(s);
 					f.setAccessible(true);
