@@ -44,8 +44,8 @@ public class SStoryType extends MultipleScore<int[]>{
 	@Override
 	public int[] extractD(DemandMethods myDemand) {
 		return myDemand.getStoryType();
-	}	
+	}
+	
 	public ArrayList<String> getStoryType(){return storyType;}
 	public void setStoryType(ArrayList<String> value){storyType = value;}
-
 }

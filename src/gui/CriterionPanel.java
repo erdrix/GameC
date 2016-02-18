@@ -21,7 +21,6 @@ public class CriterionPanel extends  JPanel {
 	private static ArrayList<TreeMap<String,String>> Intervalle;
 	private static ArrayList<TreeMap<String,String>> Binary;
 	private static ArrayList<TreeMap<String,String>> Multiple;
-	private static ArrayList<TreeMap<String,String>> MultipleComplexe;
 	private static ArrayList<TreeMap<String,String>> Style;
 	public CriterionPanel(){
 		super();
@@ -166,24 +165,20 @@ public class CriterionPanel extends  JPanel {
 		Binary.add(elmt);
 		
 		// Instanciation des Multiple
-		MultipleComplexe = new ArrayList<>();
+		Multiple = new ArrayList<>();
 		elmt = new TreeMap<>();
 		elmt.put("classe", "Accessory");
 		elmt.put("label", "Accessoires");
-		elmt.put("methods", "getOptions");
-		MultipleComplexe.add(elmt);
-		
-		Multiple = new ArrayList<>();
+		Multiple.add(elmt);
+
 		elmt = new TreeMap<>();
 		elmt.put("classe", "StoryType");
-		elmt.put("label", "Type d'histoire : ");	
-		elmt.put("methods", "getStoryType");	
+		elmt.put("label", "Type d'histoire : ");		
 		Multiple.add(elmt);
 		
 		elmt = new TreeMap<>();
 		elmt.put("classe", "GameSupport");
 		elmt.put("label", "Supports de jeu : ");
-		elmt.put("methods", "getOptions");
 		Multiple.add(elmt);
 		
 		// Instanciation des Style

@@ -206,15 +206,7 @@ public class Demand implements DemandMethods{
 	public void setField(String classe, Object s){
 		try {
 			Field [] fields = Class.forName("demand.Demand").getDeclaredFields();
-			String [] fields_type = new String[fields.length];
-			int i = 0;
 			for(Field f : fields){
-				String temp = f.getType().toString().split("demand.")[1].split(";")[0];
-				fields_type[i] = temp;
-				i++;
-			}
-			i = 0;
-			for(Field f : fields){			
 				if(f.toString().contains(classe)){
 					Class<?> crit_class = Class.forName("demand.D"+classe);
 					Constructor<?> constructors = crit_class.getDeclaredConstructor(s.getClass()); 
@@ -222,7 +214,6 @@ public class Demand implements DemandMethods{
 					f.setAccessible(true);
 					f.set(this,criteria);		
 				}
-				i++;
 			}		
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block

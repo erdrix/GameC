@@ -26,6 +26,7 @@ public class CriterionSupply extends JPanel{
 	{
 		TitledBorder tb = BorderFactory.createTitledBorder(name);
 		setBorder(tb);
+		System.out.println("nb Element "+name+" "+(infos.length/2));
 		setLayout(new GridLayout(infos.length/2,2));
 		for(String i : infos)
 		{

@@ -18,7 +18,6 @@ public class KeywordPanel extends JPanel {
 		jl = new JLabel(t.get("label"));
 		classe = t.get("classe");
 		add(jl);
-		UserPanel.custom_demand.setField(classe, "");
 		jtf = new JTextField(12);
 		jtf.getDocument().addDocumentListener(new DocumentListener(){
 
@@ -33,7 +32,6 @@ public class KeywordPanel extends JPanel {
 				// TODO Auto-generated method stub
 				String s = new String(jtf.getText());
 				UserPanel.custom_demand.setField(classe, s);
-				System.out.println(UserPanel.custom_demand.getTitle());
 				System.out.println(s);
 			}
 

@@ -26,8 +26,8 @@ public class UserPanel extends JPanel {
 			}
 			
 		});
-		String[] main_infos = {"DTitle","DEditor","DPrice","DReleaseDate","DGameStyle","DStoryType","DGameType","DMark",};
-		String[] aux_infos = {"DDescription","DAccessory","DDifficulty","DBuyMethod"};
+		String[] main_infos = {"DTitle","DDescription","DEditor","DMark","DReleaseDate","DGameStyle",};
+		String[] aux_infos = {"DDifficulty","DLifeTime"};
 		cp = new InformationsPanel(main_infos,aux_infos);
 		add(cp,BorderLayout.CENTER);
 		add(bp,BorderLayout.SOUTH);
