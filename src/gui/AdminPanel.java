@@ -4,14 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,6 +18,7 @@ import supply.Supply;
 @SuppressWarnings("serial")
 public class AdminPanel extends JPanel {
 	private HeadPanel head;
+	@SuppressWarnings("unused")
 	private Dimension dim;
 	private Connexion connexion;
 	private HomeFrame frame;
@@ -31,7 +29,7 @@ public class AdminPanel extends JPanel {
 		ArrayList<Supply> supplies = connexion.getSupply();
 		
 	    //On définit le layout en lui indiquant qu'il travaillera en ligne
-		dim = d;
+		dim = new Dimension(d);
 		setLayout(new BorderLayout());
 		
 	    head = new HeadPanel(d, "Administration des offres",new Color(181,94,94), frame );

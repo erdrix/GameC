@@ -5,10 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,12 +15,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import bd.Connexion;
-import supply.Couple;
-import supply.SBuyMethod;
-import supply.SDifficulty;
-import supply.SGameStyle;
-import supply.SGameType;
-import supply.SLifeTime;
 import supply.Supply;
 
 @SuppressWarnings("serial")

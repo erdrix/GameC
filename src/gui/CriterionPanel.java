@@ -169,7 +169,7 @@ public class CriterionPanel extends  JPanel {
 		MultipleComplexe = new ArrayList<>();
 		elmt = new TreeMap<>();
 		elmt.put("classe", "Accessory");
-		elmt.put("label", "Accessoires");
+		elmt.put("label", "Accessoires :");
 		elmt.put("methods", "getOptions");
 		MultipleComplexe.add(elmt);
 		
@@ -184,7 +184,7 @@ public class CriterionPanel extends  JPanel {
 		elmt.put("classe", "GameSupport");
 		elmt.put("label", "Supports de jeu : ");
 		elmt.put("methods", "getOptions");
-		Multiple.add(elmt);
+		MultipleComplexe.add(elmt);
 		
 		// Instanciation des Style
 		Style = new ArrayList<>();

@@ -16,8 +16,9 @@ public class HomeFrame extends GUIMainFrame{
 	private static AuthPanel ap;
 	private static UserPanel up;
 	private static AdminPanel adp;
+	private static ResultPanel rp;
 	private Connexion connexion;
-	private HomeFrame me;
+	public static HomeFrame me;
 	
 	public HomeFrame(Connexion c){
 		super();
@@ -29,7 +30,7 @@ public class HomeFrame extends GUIMainFrame{
 		setJMenuBar(new GUIMenu());
 		hp = new HomePanel();
 		ap = new AuthPanel();
-       	up = new UserPanel();
+       	up = new UserPanel(this,d,c);
 		add(hp,BorderLayout.CENTER);
 		hp.homebutton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -77,6 +78,20 @@ public class HomeFrame extends GUIMainFrame{
 				}
             });;
 		
+        up.bp.applybutton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				up.setVisible(false);
+				rp = new ResultPanel(HomeFrame.me, HomeFrame.d, up.getResult());
+				rp.setVisible(true);
+				add(rp);
+				setTitle("Le Hoatton - Résultats");
+				
+			}
+        	
+        });
 		/*up.getBP().logoutbutton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -117,10 +132,5 @@ public class HomeFrame extends GUIMainFrame{
 		up.setVisible(false);
 		hp.setVisible(false);
 		ap.setVisible(true);
-	}
-	public static void main(String [] args){
-		Connexion connexion = new Connexion();
-		new HomeFrame(connexion);
-		
 	}
 }

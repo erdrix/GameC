@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class HeaderPanel extends JPanel{
 	
 	public HeaderPanel(String t, Color c, int headerSize){
