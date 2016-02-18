@@ -1,16 +1,27 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,23 +37,94 @@ public class CriterionSupply extends JPanel{
 	{
 		TitledBorder tb = BorderFactory.createTitledBorder(name);
 		setBorder(tb);
-		System.out.println("nb Element "+name+" "+(infos.length/2));
 		setLayout(new GridLayout(infos.length/2,2));
 		for(String i : infos)
 		{
-			String type = getType(i);
-			try{
-				
-				Constructor<?> constructors = Class.forName("gui.S"+type+"Panel").getDeclaredConstructor((new JButton()).getClass(), (new TreeMap<>()).getClass(), s.getClass());
-				for(TreeMap<String, String> value : elements)
-				{
-					if(i.equals(value.get("classe")))
+			if(i.equals("Quantite"))
+			{
+				JPanel pan = new JPanel();add(pan);
+				JLabel jl = new JLabel("Quantite : ");pan.add(jl);
+				JTextField jtf = new JTextField(12);
+				jtf.setText(""+s.getQuantite()); pan.add(jtf);				
+				save.addActionListener(new ActionListener(){
+					public void actionPerformed( ActionEvent e)
 					{
-						Component c = (Component) constructors.newInstance(save, value, s);
-						add(c);
+						Class<?> c = s.getClass();
+						try {
+							Method m = c.getMethod("setQuantite", int.class);
+							m.invoke(s, Integer.parseInt(jtf.getText()));
+						} catch (Exception et) {et.printStackTrace();}
 					}
-				}
-			}catch(Exception e){e.printStackTrace();}
+				});
+				jtf.getDocument().addDocumentListener(new DocumentListener(){
+
+					@Override
+					public void changedUpdate(DocumentEvent arg0) {
+						
+					}
+
+					@Override
+					public void insertUpdate(DocumentEvent arg0) {
+						if(!(0<=Float.parseFloat(jtf.getText())))
+						{
+							save.setEnabled(false);
+							jtf.setBorder(BorderFactory.createLineBorder(Color.RED));
+						}
+						else
+						{
+							jtf.setBorder( UIManager.getBorder("TextField.border") );
+							save.setEnabled(true);
+						}						
+					}
+
+					@Override
+					public void removeUpdate(DocumentEvent arg0) {
+						if(!(0<=Float.parseFloat(jtf.getText())))
+						{
+							save.setEnabled(false);
+							jtf.setBorder(BorderFactory.createLineBorder(Color.RED));
+						}
+						else
+						{
+							jtf.setBorder( UIManager.getBorder("TextField.border") );
+							save.setEnabled(true);
+						}
+					}
+				});
+			}
+			else if(i.equals("Image"))
+			{
+				JPanel pan = new JPanel();add(pan);
+				JLabel jl = new JLabel("Url Image : ");pan.add(jl);
+				JTextField jtf = new JTextField(12);
+				jtf.setText(s.getImage()); pan.add(jtf);
+				save.addActionListener(new ActionListener(){
+					public void actionPerformed( ActionEvent e)
+					{
+						Class<?> c = s.getClass();
+						try {
+							Method m = c.getMethod("setImage", String.class);
+							m.invoke(s, jtf.getText());
+						} catch (Exception et) {et.printStackTrace();}
+					}
+				});
+			}
+			else
+			{
+				String type = getType(i);
+				try{
+					
+					Constructor<?> constructors = Class.forName("gui.S"+type+"Panel").getDeclaredConstructor((new JButton()).getClass(), (new TreeMap<>()).getClass(), s.getClass());
+					for(TreeMap<String, String> value : elements)
+					{
+						if(i.equals(value.get("classe")))
+						{
+							Component c = (Component) constructors.newInstance(save, value, s);
+							add(c);
+						}
+					}
+				}catch(Exception e){e.printStackTrace();}
+			}
 		} 
 	}
 	

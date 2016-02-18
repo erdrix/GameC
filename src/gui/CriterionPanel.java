@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -34,7 +35,7 @@ public class CriterionPanel extends  JPanel {
 		setLayout(new GridLayout(infos.length/2,2));
 		init_arrays();
 		for(String s : infos){
-			String type = getType(s); System.out.println(type);
+			String type = getType(s); 
 			try {
 				Constructor<?> constructors = Class.forName("gui."+type+"Panel").getDeclaredConstructor( (new TreeMap<>()).getClass() );
 				Field[] fields = Class.forName("gui.CriterionPanel").getDeclaredFields();

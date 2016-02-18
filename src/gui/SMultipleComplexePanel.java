@@ -65,7 +65,7 @@ public class SMultipleComplexePanel extends JPanel{
 				
 				// Boutton de premier niveau
 				JCheckBox bu = new JCheckBox(o);pan.add(bu);
-				if(value.containsKey(o))
+				if(supply.getIdOffre() != -1 && value.containsKey(o))
 				{
 					bu.setSelected(true);
 					test = true;
@@ -88,7 +88,7 @@ public class SMultipleComplexePanel extends JPanel{
 				js.setPreferredSize(new Dimension(150,25));
 				pan.add(js);
 				ArrayList<Integer> items = new ArrayList<>();
-				if(value.get(o) != null)
+				if(supply.getIdOffre()!=-1 && value.get(o) != null)
 					for(TreeMap<String, String> v : value.get(o))
 					{
 						for(int i = 0; i< elmt.length; i++)

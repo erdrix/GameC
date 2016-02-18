@@ -62,7 +62,7 @@ public class SMultiplePanel extends JPanel{
 					gbc.gridy =c_y;
 				}
 				JCheckBox bu = new JCheckBox(o);
-				if(value.indexOf(o)!= -1) bu.setSelected(true);
+				if(supply.getIdOffre()!=-1 &&value.indexOf(o)!= -1) bu.setSelected(true);
 				jb.add(bu); add(bu, gbc);
 			}
 		}catch(Exception e){e.printStackTrace();}

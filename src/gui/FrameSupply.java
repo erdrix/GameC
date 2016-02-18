@@ -59,7 +59,8 @@ public class FrameSupply extends JFrame{
 			JSONObject jsonObject = (JSONObject) obj;
 			JSONObject interf= (JSONObject) jsonObject.get("Interface");
 			JSONArray objP = (JSONArray) interf.get("Principal"); 
-			main_infos = new String[objP.size()]; objP.toArray(main_infos);
+			main_infos = new String[objP.size()+2]; objP.toArray(main_infos);
+			main_infos[objP.size()] = "Image"; main_infos[objP.size()+1]="Quantite";
 			objP = (JSONArray) interf.get("Secondaire"); 
 			aux_infos = new String[objP.size()]; objP.toArray(aux_infos);
 			nouv = new SupplyInfo(save, supply,  main_infos, aux_infos);add(nouv, BorderLayout.CENTER);
