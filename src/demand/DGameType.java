@@ -9,6 +9,10 @@ public class DGameType {
 	{
 		type = item;
 	}
+	public DGameType(Integer item)
+	{
+		type = item;
+	}
 	
 		// METHODE
 	/**
