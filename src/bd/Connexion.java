@@ -279,6 +279,7 @@ public class Connexion {
 				SGameStyle gst = new SGameStyle(offres.getString("styleJeu"));
 				String lienImg = offres.getString("lienImage");
 				
+				// Style histoire
 				ArrayList<String> stories = new ArrayList<>();
 				ArrayList<Integer> ids = this.getStyleStoriesByIdOffre(idOffre);
 				for(int id : ids)
@@ -286,7 +287,7 @@ public class Connexion {
 						stories.add(s);
 				SStoryType st = new SStoryType(stories);
 				
-				
+				// Support
 				ArrayList<TreeMap<String, String>> supports = new ArrayList<>();
 				ids = getJoueSurByIdOffre(idOffre);
 				for(int id : ids)
@@ -294,6 +295,7 @@ public class Connexion {
 						supports.add(a);
 				SGameSupport gs =  new SGameSupport(supports);
 				
+				// Accessoires
 				ArrayList<TreeMap<String, String>> accessories = new ArrayList<>();
 				ids = getJoueAvecByIdOffre(idOffre);
 				for(int id : ids)

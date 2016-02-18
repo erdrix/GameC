@@ -1,8 +1,8 @@
 {
 	"Interface": 
 		{
-			"Principal":["Title","Description","Editor","Mark","ReleaseDate","GameStyle"],
-			"Secondaire":["Difficulty","LifeTime", "Price", "BuyMethod", "GameType", "StoryType", "Accessory", "GameSupport"],
+			"Principal":["Title","Description","Editor","Mark","ReleaseDate","GameStyle", "Price", "GameSupport"],
+			"Secondaire":["Difficulty","LifeTime", "BuyMethod", "GameType", "StoryType", "Accessory"],
 			"Criteres":{
 				"Keyword":
 				[
@@ -28,8 +28,9 @@
 				],
 				"MultipleComplexe":
 				[
-					{"classe": "Accessory", "label": "Accessoires : ", "methods": ["getTypeAccessories","getOptions"]},
-					{"classe": "GameSupport", "label": "Support de jeu : ", "methods": ["getTypeSupports","getOptions"]},
+					{"classe": "Accessory", "label": "Accessoires : ", "premier": "nomAccessoire","deuxieme" : "nomEditeur", "methods": ["getTypeAccessories","getOptions"]},
+					
+					{"classe": "GameSupport", "label": "Support de jeu : ", "premier": "nomSupport","deuxieme" : "nomEditeur", "methods": ["getTypeSupports","getOptions"]},
 				],
 				"Multiple":
 				[
@@ -43,7 +44,7 @@
 
 		},
 	"BuyMethod": ["Abonnement", "Licence", "Gratuit"],
-	"Difficulty": ["Debutant", "Intermediaire", "Confirme", "Experimente"],
+	"Difficulty": ["Facile", "Moyen", "Difficile", "Expert"],
 	"GameType": ["Hors Ligne", "En Ligne"],
 	"LifeTime": ["Courte", "Moyenne", "Longue", "Infinie"],
 	"GameStyle":

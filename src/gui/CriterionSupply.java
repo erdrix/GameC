@@ -85,7 +85,8 @@ public class CriterionSupply extends JPanel{
 						if(methods.size() == 2)
 							elmt.put("methodChoix", (String) methods.get(1));
 					}
-					
+					if(e.get("premier") != null) elmt.put("premier", (String) e.get("premier"));
+					if(e.get("deuxieme") != null) elmt.put("deuxieme", (String) e.get("deuxieme"));
 					elements.add(elmt);
 				}
 			}
