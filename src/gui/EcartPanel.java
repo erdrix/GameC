@@ -22,6 +22,8 @@ public class EcartPanel extends JPanel {
 		jl = new JLabel(type.get("label"));
 		classe = type.get("classe");
 		add(jl);
+
+		UserPanel.custom_demand.setField(classe, 0);
 		try {
 			Constructor<?> constructors = 
 					Class.forName("supply.S"+type.get("classe"))
