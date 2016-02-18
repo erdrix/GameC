@@ -15,20 +15,19 @@ import supply.Supply;
 public class SKeywordPanel extends JPanel{
 	private JLabel jl;
 	private String classe;
-	private String field;
 	private JTextField jtf;
 	private Supply supply;
 	
-	public SKeywordPanel(JButton save, TreeMap<String, String> t, Supply s, String f)
+	public SKeywordPanel(JButton save, TreeMap<String, String> t, Supply s)
 	{
 		jl = new JLabel(t.get("label"));
 		classe = t.get("classe");
-		supply = s; field = f;
+		supply = s;
 		add(jl);
 		
 		try {
 			Class<?> c = supply.getClass();
-			Method m = c.getMethod("get"+field);
+			Method m = c.getMethod("get"+classe);
 			String value = (String) m.invoke(supply);
 			jtf = new JTextField(12);
 			jtf.setText(value);
@@ -41,10 +40,8 @@ public class SKeywordPanel extends JPanel{
 			{
 				Class<?> c = supply.getClass();
 				try {
-					System.out.println("set"+field);
-					Method m = c.getMethod("set"+field, String.class);
+					Method m = c.getMethod("set"+classe, String.class);
 					m.invoke(supply, jtf.getText());
-					System.out.println(supply.getTitle()+" | "+jtf.getText());
 				} catch (Exception et) {et.printStackTrace();}
 			}
 		});

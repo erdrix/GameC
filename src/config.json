@@ -2,41 +2,48 @@
 	"Interface": 
 		{
 			"Principal":["Title","Description","Editor","Mark","ReleaseDate","GameStyle"],
-			"Secondaire":["Difficulty","LifeTime"],
+			"Secondaire":["Difficulty","LifeTime", "Price", "BuyMethod", "GameType", "StoryType", "Accessory", "GameSupport"],
 			"Criteres":{
 				"Keyword":
 				[
 					{"classe": "Title", "label": "Titre du jeu : "},
 					{"classe": "Editor", "label":  "Editeur : "},
-					{"classe": "Description", "label": "Mots-clés : "}
+					{"classe": "Description", "label": "Mots-cles : "}
 				],
 				"Ecart":
 				[
-					{"classe": "LifeTime", "label": "Durée de vie : ", "methods": ["getOptions"]},
-					{"classe": "Difficulty", "label": "Difficulté : ", "methods": ["getOptions"]}
+					{"classe": "LifeTime", "label": "Duree de vie : ", "methods": ["getOptions"]},
+					{"classe": "Difficulty", "label": "Difficulte : ", "methods": ["getOptions"]}
 				],
 				"Intervalle":
 				[
 					{"classe": "Mark", "label": "Note : ", "methods": ["getLimits"]},
 					{"classe": "Price", "label": "Prix : ", "methods": ["getLimits"]},
-					{"classe": "ReleaseDate", "label": "Annee : ", "methods": ["getLimits"]}
+					{"classe": "ReleaseDate", "label": "Sortie France : ", "methods": ["getLimits"]}
 				],
 				"Binary":
 				[
 					{"classe": "BuyMethod", "label": "Paiement : ", "methods": ["getOptions"]},
 					{"classe": "GameType", "label": "Mode de jeu : ", "methods": ["getOptions"]}
 				],
-				"Multiple":
+				"MultipleComplexe":
 				[
 					{"classe": "Accessory", "label": "Accessoires : ", "methods": ["getTypeAccessories","getOptions"]},
 					{"classe": "GameSupport", "label": "Support de jeu : ", "methods": ["getTypeSupports","getOptions"]},
-					{"classe": "StoryType", "label": "Type d'histoire : ", "methods": ["getOptions"]},
+				],
+				"Multiple":
+				[
+					{"classe": "StoryType", "label": "Type d'histoire : ", "methods": ["getOptions"]}
+				],
+				"Style":
+				[
+					{"classe": "GameStyle", "label": "Genre : ", "methods": ["getOptions"]},
 				]
 			}
 
 		},
 	"BuyMethod": ["Abonnement", "Licence", "Gratuit"],
-	"Difficulty": ["Facile", "Moyen", "Difficile", "Expert"],
+	"Difficulty": ["Debutant", "Intermediaire", "Confirme", "Experimente"],
 	"GameType": ["Hors Ligne", "En Ligne"],
 	"LifeTime": ["Courte", "Moyenne", "Longue", "Infinie"],
 	"GameStyle":
