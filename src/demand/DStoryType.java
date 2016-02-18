@@ -1,18 +1,20 @@
 package demand;
 
+import java.util.ArrayList;
+
 public class DStoryType {
 		// ATTRIBUT
 	protected int type[];	// Numéro du choix du style d'histoire.
 	
 		// CONSTRUCTEUR
-	public DStoryType(int ...t)
+	public DStoryType(ArrayList<Integer> t)
 	{
 		int size = 0;
 		if(t!=null)
-			size = t.length;
+			size = t.size();
 		type = new int[size];
 		for(int i=0; i<size; i++)
-			type[i] = t[i];  
+			type[i] = t.get(i);  
 	}
 	
 		// METHODE

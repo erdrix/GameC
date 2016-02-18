@@ -11,6 +11,10 @@ public class DBuyMethod {
 		price = prix;
 		method = m;
 	}
+	public DBuyMethod(Integer m)
+	{
+		method = m;
+	}
 
 		// METHODES
 	/**

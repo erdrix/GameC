@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class HeadPanel extends JPanel{
 	private HomeFrame frame;
 	public HeadPanel(Dimension d, String title, Color c, HomeFrame f)
