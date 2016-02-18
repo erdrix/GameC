@@ -160,4 +160,11 @@ public abstract class SEquipement extends MultipleScore<ArrayList<TreeMap<String
 		}
 	}
 	
+	// Supprime tous les équipements
+	public void setEquipements(ArrayList<TreeMap<String, String>> items)
+	{
+		for(TreeMap<String, String> item : items)
+			addEquipement(item);
+	}
+	
 }

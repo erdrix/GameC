@@ -284,8 +284,7 @@ public class Connexion {
 				for(int id : ids)
 					for(String s : getTypeStoriesById(id))
 						stories.add(s);
-				String[] t = new String[stories.size()];
-				SStoryType st = new SStoryType(stories.toArray(t));
+				SStoryType st = new SStoryType(stories);
 				
 				
 				ArrayList<TreeMap<String, String>> supports = new ArrayList<>();
@@ -351,7 +350,7 @@ public class Connexion {
 		} catch (SQLException e) {e.printStackTrace();}
 		
 		// Accessoires
-		TreeMap<String, ArrayList<TreeMap<String, String>>> accessories = s.getAccessories();
+		TreeMap<String, ArrayList<TreeMap<String, String>>> accessories = s.getAccessory();
 		Set<String> keys = accessories.keySet();
 		int id;
 		for(String key : keys){
@@ -365,7 +364,7 @@ public class Connexion {
 		}
 		
 		// Supports
-		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getSupports();
+		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getGameSupport();
 		keys = supports.keySet();
 		for(String key : keys){
 			for(TreeMap<String, String> elmt : supports.get(key)){
@@ -378,7 +377,7 @@ public class Connexion {
 		}
 		
 		// style d'histoire
-		String[] styleStories = s.getStyleType();
+		ArrayList<String> styleStories = s.getStoryType();
 		for(String sS : styleStories)
 		{
 			id = getIdStoriesByName(sS);
@@ -410,7 +409,7 @@ public class Connexion {
 		try {statement1.executeUpdate(query);} catch (SQLException e) {e.printStackTrace();}
 		
 		// Accessoires
-		TreeMap<String, ArrayList<TreeMap<String, String>>> accessories = s.getAccessories();
+		TreeMap<String, ArrayList<TreeMap<String, String>>> accessories = s.getAccessory();
 		try {statement1.executeUpdate("DELETE FROM JoueAvec WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
 		Set<String> keys = accessories.keySet();
 		int id;
@@ -428,7 +427,7 @@ public class Connexion {
 		}
 		
 		// Supports
-		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getSupports();
+		TreeMap<String, ArrayList<TreeMap<String, String>>> supports = s.getGameSupport();
 		try {statement1.executeUpdate("DELETE FROM JoueSur WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
 		keys = supports.keySet();
 		if(keys != null)
@@ -445,7 +444,8 @@ public class Connexion {
 		}
 		
 		// style d'histoire
-		String[] styleStories = s.getStyleType();
+		ArrayList<String> styleStories = s.getStoryType();
+		try {statement1.executeUpdate("DELETE FROM StyleStories WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
 		if(styleStories != null)
 		{
 			for(String sS : styleStories)

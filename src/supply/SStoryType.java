@@ -6,11 +6,11 @@ import score.MultipleScore;
 public class SStoryType extends MultipleScore<int[]>{
 	
 		//ATTRIBUTS
-	protected String[] storyType;
+	protected ArrayList<String> storyType;
 	static private ArrayList<String> typeS;
 	
 		// CONSTRUCTEUR
-	public SStoryType(String ...type){super(); storyType = (type.length == 0)? null : type;}
+	public SStoryType(ArrayList<String> type){super(); storyType = (type.size() == 0)? null : type;}
 	
 		// METHODES
 	public static void Init(ArrayList<String> stories){typeS = stories;}
@@ -46,6 +46,6 @@ public class SStoryType extends MultipleScore<int[]>{
 		return myDemand.getStoryType();
 	}
 	
-	public String[] getStoryType(){return storyType;}
-	public void setStoryType(String[] value){storyType = value;}
+	public ArrayList<String> getStoryType(){return storyType;}
+	public void setStoryType(ArrayList<String> value){storyType = value;}
 }

@@ -49,7 +49,7 @@ public class Supply implements Comparable<Supply>{
 		this.diff  = new SDifficulty("");
 		this.lt    = new SLifeTime("");
 		this.gst   = new SGameStyle(""); 
-		this.st    = new SStoryType("");
+		this.st    = new SStoryType(null);
 		this.gs    = new SGameSupport(null);
 		this.acce  = new SAccessory(null);
 		score = 0; 
@@ -88,9 +88,9 @@ public class Supply implements Comparable<Supply>{
 	public String getDifficulty(){return diff.getDifficulty();}
 	public String getLifeTime(){return lt.getLifeTime();}
 	public String getGameStyle(){return gst.getGameStyle();}
-	public String[] getStyleType(){return st.getStoryType();}
-	public TreeMap<String, ArrayList<TreeMap<String, String>>>getSupports(){return gs.getSupports();}
-	public TreeMap<String, ArrayList<TreeMap<String, String>>>getAccessories(){return acce.getAccessories();}
+	public ArrayList<String> getStoryType(){return st.getStoryType();}
+	public TreeMap<String, ArrayList<TreeMap<String, String>>>getGameSupport(){return gs.getSupports();}
+	public TreeMap<String, ArrayList<TreeMap<String, String>>>getAccessory(){return acce.getAccessories();}
 	public float getPrice(){return price.getPrice();}
 	public int getIdOffre(){return idOffre;}
 	public String getImage(){return urlImg;}
@@ -106,11 +106,13 @@ public class Supply implements Comparable<Supply>{
 	public void setDifficulty(String value){diff.setDifficulty(value);}
 	public void setLifeTime(String value){lt.setLifeTime(value);}
 	public void setGameStyle(String value){gst.setGameStyle(value);}
-	public void setStyleType(String[] value){st.setStoryType(value);}
+	public void setStoryType(ArrayList<String> value){st.setStoryType(value);}
 	public void addAccessory(TreeMap<String, String> value){acce.addEquipement(value);}
 	public void deleteAccessory(TreeMap<String, String> value){acce.deleteEquipement(value);}
+	public void setAccessory(ArrayList<TreeMap<String, String>> value){acce.setEquipements(value);}
 	public void addSupport(TreeMap<String, String> value){gs.addEquipement(value);}
 	public void deleteSupport(TreeMap<String, String> value){gs.deleteEquipement(value);}
+	public void setSupport(ArrayList<TreeMap<String, String>> value){gs.setEquipements(value);}
 	public void setPrice(float value){price.setPrice(value);}
 	public void setIdOffre(int value){idOffre = value;}
 	public void setImage(String value){urlImg=value;}

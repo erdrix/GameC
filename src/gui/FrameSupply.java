@@ -43,7 +43,7 @@ public class FrameSupply extends JFrame{
 		connexion=c;
 		// Style de la fenêtre
 		setLayout(new BorderLayout());
-		this.setBounds(10, 10, 500, 500);
+		this.setBounds(100, 100, 800, 800);
 		this.setResizable(false);
 		
 		// Eléments de la fenêtre
