@@ -10,7 +10,7 @@ public class SStoryType extends MultipleScore<int[]>{
 	static private ArrayList<String> typeS;
 	
 		// CONSTRUCTEUR
-	public SStoryType(ArrayList<String> type){super(); storyType = (type.size() == 0)? null : type;}
+	public SStoryType(ArrayList<String> type){super(); storyType = type;}
 	
 		// METHODES
 	public static void Init(ArrayList<String> stories){typeS = stories;}

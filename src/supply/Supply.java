@@ -112,7 +112,7 @@ public class Supply implements Comparable<Supply>{
 	public void setAccessory(ArrayList<TreeMap<String, String>> value){acce.setEquipements(value);}
 	public void addSupport(TreeMap<String, String> value){gs.addEquipement(value);}
 	public void deleteSupport(TreeMap<String, String> value){gs.deleteEquipement(value);}
-	public void setSupport(ArrayList<TreeMap<String, String>> value){gs.setEquipements(value);}
+	public void setGameSupport(ArrayList<TreeMap<String, String>> value){gs.setEquipements(value);}
 	public void setPrice(float value){price.setPrice(value);}
 	public void setIdOffre(int value){idOffre = value;}
 	public void setImage(String value){urlImg=value;}

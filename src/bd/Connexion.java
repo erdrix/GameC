@@ -394,7 +394,7 @@ public class Connexion {
 		int numEditeur = getEditorByName(s.getEditor());
 		String query = "UPDATE Supplies SET "+
 							"titre = '"+ s.getTitle()+
-							"', description = '"+s.getDescription()+
+							"', description = '"+s.getDescription().replace("'", "''")+
 							"', prix = '"+s.getPrice()+
 							"', note = '"+s.getMark()+
 							"', styleJeu = '"+s.getGameStyle()+

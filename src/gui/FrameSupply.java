@@ -37,13 +37,14 @@ public class FrameSupply extends JFrame{
 	private FrameSupply me;
 	@SuppressWarnings("unchecked")
 	public FrameSupply(Connexion c, HomeFrame f, Supply s){
+		//this.pack();
 		me = this;
 		supply = s;
 		frame = f;
 		connexion=c;
 		// Style de la fenêtre
 		setLayout(new BorderLayout());
-		this.setBounds(100, 100, 800, 700);
+		this.setBounds(100,0, 800, 750);
 		this.setResizable(false);
 		
 		// Eléments de la fenêtre

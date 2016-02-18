@@ -1,8 +1,8 @@
 {
 	"Interface": 
 		{
-			"Principal":["Title","Description","Editor","Mark","ReleaseDate","GameStyle", "Price", "GameSupport"],
-			"Secondaire":["Difficulty","LifeTime", "BuyMethod", "GameType", "StoryType", "Accessory"],
+			"Principal":["Title","Description","Editor","Mark","ReleaseDate","GameStyle", "Price","GameType" ],
+			"Secondaire":["Difficulty","LifeTime", "Accessory","GameSupport", "StoryType", "BuyMethod"],
 			"Criteres":{
 				"Keyword":
 				[

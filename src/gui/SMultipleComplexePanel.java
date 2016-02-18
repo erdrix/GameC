@@ -1,9 +1,12 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
@@ -25,6 +28,7 @@ public class SMultipleComplexePanel extends JPanel{
 	private JLabel jl;
 	private String classe;
 	private ArrayList<JCheckBox> jb;
+	private TreeMap<String, JList<String>> jList;
 	private Supply supply;
 	private String meth;
 	private String methChoix;
@@ -34,15 +38,9 @@ public class SMultipleComplexePanel extends JPanel{
 		jl = new JLabel(t.get("label"));
 		classe = t.get("classe");
 		meth = t.get("methodOptions"); methChoix = t.get("methodChoix");
-		this.setPreferredSize(new Dimension(300,100));
+		jList = new TreeMap<>();
 		supply = s;
-		GridBagConstraints gbc = new GridBagConstraints();
-		setLayout(new GridBagLayout());
-		gbc.gridx = 0; gbc.gridy = 0;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.gridheight =1;
-		gbc.anchor = GridBagConstraints.WEST;
-		add(jl, gbc);
+		
 		jb = new ArrayList<>(); 
 		try{
 			Class<?> c = supply.getClass();
@@ -54,27 +52,17 @@ public class SMultipleComplexePanel extends JPanel{
 
 			ArrayList<String> options = (ArrayList<String>) getOption.invoke(supply);
 			TreeMap<String, ArrayList<TreeMap<String, String>>> choix = (TreeMap<String, ArrayList<TreeMap<String, String>>>) getChoix.invoke(supply);
-			System.out.println(choix);
-			int c_x = 0; int c_y = 1;
 			boolean test =false;
+			setLayout(new GridLayout( (int) Math.ceil(options.size()+1/2.0),2));
+			add(jl);
 			for(String o : options)
 			{
 				test = false;
-				if(c_x == 1)
-				{
-					gbc.gridwidth = GridBagConstraints.REMAINDER;
-					gbc.gridx = c_x; gbc.gridy = c_y;
-					c_x = 0; c_y++;
-				}else
-				{
-					gbc.gridwidth = 1; gbc.gridx = c_x; c_x++;
-					gbc.gridy =c_y;
-				}
-				JPanel pan = new JPanel();
+				
+				JPanel pan = new JPanel();//pan.setLayout(new BorderLayout());
 				ArrayList<TreeMap<String, String>> elmts = choix.get(o);
 				
-				pan.setLayout(new GridLayout(2,1));
-				pan.setPreferredSize(new Dimension(300, 100));
+				
 				// Boutton de premier niveau
 				JCheckBox bu = new JCheckBox(o);pan.add(bu);
 				if(value.containsKey(o))
@@ -84,36 +72,76 @@ public class SMultipleComplexePanel extends JPanel{
 				}
 				
 				// Pour chaque elements possibles 
-				
 				String[] elmt = new String[elmts.size()];
 				int cpt = 0;
 				for(TreeMap<String, String> e : elmts)
 				{
-					elmt[cpt] = e.get(t.get("premier"))+"["+e.get(t.get("deuxieme"))+"]";
+					elmt[cpt] = e.get(t.get("premier"))+" ["+e.get(t.get("deuxieme"))+"]";
 					cpt++;
 				}
 				
 				JList<String> list = new JList<>(elmt);
 				list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 				list.setLayoutOrientation(JList.VERTICAL);
+				if(!test) list.setEnabled(false); jList.put(o, list);
 				JScrollPane js = new JScrollPane(list);
-				bu.setPreferredSize(new Dimension(300, 50));
-				js.setPreferredSize(new Dimension(300, 50));
+				js.setPreferredSize(new Dimension(150,25));
 				pan.add(js);
+				ArrayList<Integer> items = new ArrayList<>();
+				if(value.get(o) != null)
+					for(TreeMap<String, String> v : value.get(o))
+					{
+						for(int i = 0; i< elmt.length; i++)
+							if(elmt[i].equals(v.get(t.get("premier"))+" ["+v.get(t.get("deuxieme"))+"]"))
+								items.add(i);						
+					}
+				int[] tab = new int[items.size()];
+				for(int i = 0; i< items.size(); i++)
+					tab[i]=items.get(i);
+					
+				list.setSelectedIndices(tab);
+				bu.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e)
+					{
+						if (bu.isSelected())
+							list.setEnabled(true);
+						else 
+							list.setEnabled(false);
+					}
+				});
 				
-				jb.add(bu); add(pan, gbc);
+				jb.add(bu); add(pan);
 			}
+			
+			
 		}catch(Exception e){e.printStackTrace();}
 		
 		save.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e){
+				
 				Class<?> c = supply.getClass();
 				try{
-					Method m = c.getMethod("set"+classe, new ArrayList<String>().getClass());
-					ArrayList<String> elmts = new ArrayList<>();
+					Method m = c.getMethod("set"+classe, new ArrayList<TreeMap<String, String>>().getClass());
+					ArrayList<TreeMap<String, String>> elmts = new ArrayList<>();
 					for(JCheckBox r : jb)
 						if(r.isSelected())
-							elmts.add(r.getText());
+						{
+							String s;
+							String[] contenu = new String[2];
+							
+							for(int i : jList.get(r.getText()).getSelectedIndices())
+							{
+								s = jList.get(r.getText()).getModel().getElementAt(i);
+								s = s.replace("[", ""); s = s.replace("]", "");
+								contenu = s.split(" ");
+								TreeMap<String, String> crit = new TreeMap<>();
+								crit.put(t.get("premier"), contenu[0]);
+								crit.put(t.get("deuxieme"), contenu[1]);
+								crit.put("type", r.getText());
+								System.out.println(crit);
+								elmts.add(crit);
+							}
+						}
 					m.invoke(supply, elmts);
 							
 				}catch(Exception ex){ex.printStackTrace();}
