@@ -138,6 +138,17 @@ public class SupplyPanel extends JPanel {
 		gbc.gridx = 1; gbc.gridy = 3; gbc.gridwidth = 3 ;
 		add(lGenre, gbc);
 		
+		// Affichage du bouton de suppression
+		JButton delete = new JButton("SUPPRIMER");
+		delete.setFocusPainted(false);
+		delete.setForeground(Color.WHITE);
+		delete.setBackground(new Color(234, 49 ,49));
+		delete.setPreferredSize(new Dimension(105, 24));
+		gbc.gridx = 4;
+		gbc.gridy = 3;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		add(delete, gbc);
+		
 		// Affichage du mode
 		JLabel lMode = new JLabel("<html><font size=\"4\" color=\"rgb(92,106,192)\"><b>Mode : </b></font>"+s.getGameType()+"</html>");
 		lMode.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -145,6 +156,17 @@ public class SupplyPanel extends JPanel {
 		lMode.setHorizontalAlignment(JLabel.LEFT);
 		gbc.gridx = 1; gbc.gridy = 4; gbc.gridwidth = 3 ; gbc.insets.left = 4;
 		add(lMode, gbc);
+		
+		// Affichage du bouton de suppression
+		JButton update = new JButton("MODIFIER");
+		update.setFocusPainted(false);
+		update.setForeground(Color.WHITE);
+		update.setBackground(new Color(99, 151, 229));
+		update.setPreferredSize(new Dimension(105, 24));
+		gbc.gridx = 4;
+		gbc.gridy = 4;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		add(update, gbc);
 
 		// Affichage du Paiment
 		JLabel lPaiement = new JLabel("<html><font size=\"4\" color=\"rgb(92,106,192)\"><b>Paiement : </b></font>"+s.getBuyMethod()+"</html>");
@@ -169,6 +191,29 @@ public class SupplyPanel extends JPanel {
 			public void mouseEntered(MouseEvent e){couleur = new Color(225,225,225); repaint();}
 			public void mouseExited(MouseEvent e){couleur = new Color(238,238,238); repaint();}
 			
+		});
+		
+		delete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				
+				Object[] options =  new String[]{"SUPPRIMER","ANNULER"};
+				String message = "Etes vous sûr de vouloir supprimer l'offre : "+s.getTitle();
+				int i = JOptionPane.showOptionDialog(null, message, "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,options, options[1] );
+				if(i == 0) 
+				{
+					connexion.connect();
+					connexion.deleteSupplyById(s.getIdOffre());
+					frame.reloadAdminPanel();
+				}
+			}
+		});
+		
+		update.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				FrameSupply fs = new FrameSupply(connexion, frame, supply);
+	    		fs.setVisible(true);
+			}
 		});
 	}
 	
