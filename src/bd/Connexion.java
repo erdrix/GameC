@@ -284,6 +284,7 @@ public class Connexion {
 				for(int id : ids)
 					for(String s : getTypeStoriesById(id))
 						stories.add(s);
+				
 				SStoryType st = new SStoryType(stories);
 				
 				
@@ -445,7 +446,6 @@ public class Connexion {
 		
 		// style d'histoire
 		ArrayList<String> styleStories = s.getStoryType();
-		try {statement1.executeUpdate("DELETE FROM StyleStories WHERE numOffre = "+s.getIdOffre());} catch (SQLException e) {e.printStackTrace();}
 		if(styleStories != null)
 		{
 			for(String sS : styleStories)

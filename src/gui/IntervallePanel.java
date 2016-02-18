@@ -15,10 +15,12 @@ import supply.Intervalle;
 
 @SuppressWarnings("serial")
 public class IntervallePanel extends JPanel{
+	private String classe;
 	private JLabel jl;
 	private JSlider js;
 	
 	public IntervallePanel(TreeMap<String,String> type){
+		classe = type.get("classe");
 		jl = new JLabel(type.get("label"));
 		add(jl);		
 		try {
@@ -32,6 +34,8 @@ public class IntervallePanel extends JPanel{
 			int[] limits = (int[])getIntervalle.invoke(obj);
 			
 			int ecart = limits[1]-limits[0];
+			Intervalle def = new Intervalle(limits[0],ecart/2);
+			UserPanel.custom_demand.setField(classe, def);
 			js = new JSlider(limits[0],limits[1]);
 			js.setMajorTickSpacing(ecart/4);
 			js.setMinorTickSpacing(ecart/20);

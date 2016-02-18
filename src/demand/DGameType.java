@@ -10,6 +10,11 @@ public class DGameType {
 		type = item;
 	}
 	
+	public DGameType(Integer item)
+	{
+		type = item;
+	}
+	
 		// METHODE
 	/**
 	 * Fonction retournant le numéro du type de jeu dont il s'agit (En ligne | Hors ligne).

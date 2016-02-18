@@ -26,19 +26,18 @@ public class CriterionSupply extends JPanel{
 	{
 		TitledBorder tb = BorderFactory.createTitledBorder(name);
 		setBorder(tb);
-		System.out.println("nb Element "+name+" "+(infos.length/2));
 		setLayout(new GridLayout(infos.length/2,2));
 		for(String i : infos)
 		{
 			String type = getType(i);
 			try{
 				
-				Constructor<?> constructors = Class.forName("gui.S"+type+"Panel").getDeclaredConstructor((new JButton()).getClass(), (new TreeMap<>()).getClass(), s.getClass());
+				Constructor<?> constructors = Class.forName("gui.S"+type+"Panel").getDeclaredConstructor((new JButton()).getClass(), (new TreeMap<>()).getClass(), s.getClass(), String.class);
 				for(TreeMap<String, String> value : elements)
 				{
 					if(i.equals(value.get("classe")))
 					{
-						Component c = (Component) constructors.newInstance(save, value, s);
+						Component c = (Component) constructors.newInstance(save, value, s, i);
 						add(c);
 					}
 				}

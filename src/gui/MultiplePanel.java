@@ -9,64 +9,70 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeMap;
+
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
-public class BinaryPanel extends JPanel {
+public class MultiplePanel extends JPanel {
 	private String classe;
 	private JLabel jl;
 	private ButtonGroup bg;
 	private JPanel jp;
+	
 	@SuppressWarnings("unchecked")
-	public BinaryPanel(TreeMap<String,String> type){
+	public MultiplePanel(TreeMap<String,String> type){
 		classe = type.get("classe");
-		System.out.println(classe);
+		bg = new ButtonGroup();
 		jl = new JLabel(type.get("label"));
-		UserPanel.custom_demand.setField(classe, 0);
-		add(jl);
+		add(jl);		
+		
 		try {
 			Constructor<?> constructors = 
-					Class.forName("supply.S"+type.get("classe").replace("DBuyMethod","SBuyMethod").replace("DGameType","SGameType"))
-					.getDeclaredConstructor(String.class); 
-			Object obj = constructors.newInstance("");
+					Class.forName(("supply.S"+type.get("classe")).replace("DStoryType","SStoryType"))
+					.getDeclaredConstructor(String[].class);
+			Object[] def = {new String[2]};
+			Object obj = constructors.newInstance(def);
 			Method getOptions = 
-					Class.forName("supply.S"+type.get("classe").replace("DBuyMethod","SBuyMethod").replace("DGameType","SGameType"))
+					Class.forName("supply.S"+type.get("classe"))
 					.getDeclaredMethod(type.get("methods"));
 			ArrayList<String> options = (ArrayList<String>) getOptions.invoke(obj);
-			HashSet<String> tri = new HashSet<>(options);
-			options = new ArrayList<String>(tri);
-			bg = new ButtonGroup();
-			Integer i = 0;
 			jp = new JPanel();
 			jp.setLayout(new GridLayout(2,options.size()));
+			Integer i = 0;
+			int[] value = new int[options.size()];
+			for(int k = 0 ; k < value.hashCode(); k++) value[k]=0;
+			UserPanel.custom_demand.setField(classe, value);
 			for(String s : options){
-				JRadioButton jrb = new JRadioButton(s);
-				jrb.setActionCommand(i.toString());
-				i++;
-				jrb.setSelected(true);
-				jrb.addActionListener(new ActionListener(){
+				JCheckBox jcb = new JCheckBox(s);
+				jcb.setActionCommand(i.toString());
+				jcb.addActionListener(new ActionListener(){
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						// TODO Auto-generated method stub
-						Integer value = Integer.valueOf(jrb.getActionCommand());
-						System.out.println(value);
+						Integer selection =  Integer.valueOf(jcb.getActionCommand());
+						value[selection] = (value[selection]+1)%2;
 						UserPanel.custom_demand.setField(classe, value);
-						
+						for(int valeur : value){
+							System.out.println(valeur);
+						}
 					}
 					
 				});
-				jp.add(jrb);
-				bg.add(jrb);
-				add(jp);
+				bg.add(jcb);
+				jp.add(jcb);
+				i++;		
 			}
+			add(jp);
 			
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 }
