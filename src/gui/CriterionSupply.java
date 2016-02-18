@@ -32,12 +32,12 @@ public class CriterionSupply extends JPanel{
 			String type = getType(i);
 			try{
 				
-				Constructor<?> constructors = Class.forName("gui.S"+type+"Panel").getDeclaredConstructor((new JButton()).getClass(), (new TreeMap<>()).getClass(), s.getClass(), String.class);
+				Constructor<?> constructors = Class.forName("gui.S"+type+"Panel").getDeclaredConstructor((new JButton()).getClass(), (new TreeMap<>()).getClass(), s.getClass());
 				for(TreeMap<String, String> value : elements)
 				{
 					if(i.equals(value.get("classe")))
 					{
-						Component c = (Component) constructors.newInstance(save, value, s, i);
+						Component c = (Component) constructors.newInstance(save, value, s);
 						add(c);
 					}
 				}
