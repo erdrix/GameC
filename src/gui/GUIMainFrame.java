@@ -14,7 +14,7 @@ public class GUIMainFrame extends JFrame{
 		setLayout(new BorderLayout() );
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		d = tk.getScreenSize();
-		int w = 900;
+		int w = 850;
 		int h = 800;
 		int x = (int)d.getWidth()/2 - w/2;
 		int y = (int)d.getHeight()/2 - h/2;

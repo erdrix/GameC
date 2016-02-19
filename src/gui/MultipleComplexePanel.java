@@ -12,11 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 @SuppressWarnings("serial")
 public class MultipleComplexePanel extends JPanel {
 	private String classe;
 	private JPanel jp; 
+	private ArrayList<TreeMap<String,String>> selected_accessories;
+	ArrayList<String> a;
 	
 	@SuppressWarnings("unchecked")
 	public MultipleComplexePanel(TreeMap<String,String> type){
@@ -38,12 +43,16 @@ public class MultipleComplexePanel extends JPanel {
 			options = (TreeMap<String, ArrayList<TreeMap<String, String>>>) getOptions.invoke(obj);
 			
 			ArrayList<Integer> selected_values = new ArrayList<>();
-			UserPanel.custom_demand.setField(classe, selected_values);
+			selected_accessories = new ArrayList<TreeMap<String,String>>();
+			UserPanel.custom_demand.setField(classe, selected_accessories);
 			for(Map.Entry<String, ArrayList<TreeMap<String, String>>> current_accessory : options.entrySet()){
 				ArrayList<String> accessories_list = new ArrayList<>(options.size());
 				
 				for(TreeMap<String, String> accessory_type : current_accessory.getValue()){
-					accessories_list.add(current_accessory.getKey()+" "+accessory_type.get("nomAccessoire"));
+					if(accessory_type.containsKey("nomAccessoire"))
+						accessories_list.add(accessory_type.get("nomAccessoire"));
+					if(accessory_type.containsKey("nomSupport"))
+							accessories_list.add(accessory_type.get("nomSupport"));
 				}
 				JList<Object> jl = new JList<>(accessories_list.toArray());
 				jl.setSelectionModel(new DefaultListSelectionModel() {
@@ -86,6 +95,44 @@ public class MultipleComplexePanel extends JPanel {
 			    });
 				jl.setLayoutOrientation(JList.VERTICAL);
 				jl.setVisibleRowCount(4);
+				selected_accessories = new ArrayList<TreeMap<String,String>>();
+				jl.addListSelectionListener(new ListSelectionListener(){
+
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						// TODO Auto-generated method stub
+						String current = (String) jl.getSelectedValue();
+						System.out.println(current);	
+						// Mise à jour de l'arraylist à envoyer
+						int deletion_index =  -1;
+						boolean havetoDelete=false;
+						for(TreeMap<String,String> t : selected_accessories)
+							if(t.containsValue(current)){
+								deletion_index = selected_accessories.indexOf(t);
+								havetoDelete = true;
+							}
+						if(havetoDelete) selected_accessories.remove(deletion_index);
+						
+						// Création du nouvel élément à ajouter
+						TreeMap<String,String> new_accessory = new TreeMap<String,String>();
+						new_accessory.put("type",current_accessory.getKey());
+						for(TreeMap<String, String> accessory_type : current_accessory.getValue()){
+							if(accessory_type.containsValue(current)){
+								if(accessory_type.containsKey("nomAccessoire"))
+									new_accessory.put("nomAccessoire", accessory_type.get("nomAccessoire"));
+								if(accessory_type.containsKey("nomSupport"))
+									new_accessory.put("nomSupport", accessory_type.get("nomSupport"));
+								new_accessory.put("nomEditeur", accessory_type.get("nomEditeur"));								
+							}
+						}
+						selected_accessories.add(new_accessory);
+						for(TreeMap<String,String> t : selected_accessories)
+							for(Map.Entry<String,String> er : t.entrySet()) System.out.println(er.getKey() + " : " + er.getValue());
+						
+						UserPanel.custom_demand.setField(classe, selected_accessories);
+					}
+					
+				});
 				JScrollPane listscroller = new JScrollPane(jl);
 				jp.add(listscroller);
 				System.out.println(current_accessory.getValue());
