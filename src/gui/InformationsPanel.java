@@ -13,14 +13,11 @@ public class InformationsPanel extends JPanel {
 	
 	public InformationsPanel(String[] m, String[] a){
 		setLayout(new GridLayout(2,1));
-		
-		
+		CriterionPanel.init_arrays();
 		main_panel = new CriterionPanel("Informations principales",m);
 		add(main_panel);
 		aux_panel = new CriterionPanel("Informations complémentaires",a);
 		add(aux_panel);
-		
-		
 	}
 
 	public Demand getValues(){

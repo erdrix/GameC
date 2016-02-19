@@ -54,8 +54,7 @@ public class SAccessory extends SEquipement {
 	public ArrayList<String> getTypeE(){return typeE;}
 	public static ArrayList<String> getTypeAccessories(){return typeE;}
 	public static TreeMap<String, ArrayList<TreeMap<String, String>>> getOptions(){return assoc;}
-	
-	@Override
+
 	public ArrayList<TreeMap<String, String>> extractD(DemandMethods myDemand) {
 		return myDemand.getAccessoryEquipements();
 	}

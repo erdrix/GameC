@@ -20,10 +20,9 @@ public class SKeywordPanel extends JPanel{
 	
 	public SKeywordPanel(JButton save, TreeMap<String, String> t, Supply s)
 	{
-		jl = new JLabel(t.get("label"));
+		jl = new JLabel(t.get("label")); add(jl);
 		classe = t.get("classe");
 		supply = s;
-		add(jl);
 		
 		try {
 			Class<?> c = supply.getClass();

@@ -55,8 +55,6 @@ public class SGameSupport extends SEquipement{
 	public static ArrayList<String> getTypeSupports(){return typeE;}
 	public static TreeMap<String, ArrayList<TreeMap<String, String>>> getOptions(){return assoc;}
 	
-
-	@Override
 	public ArrayList<TreeMap<String, String>> extractD(DemandMethods myDemand) {
 		return myDemand.getGameSupportEquipements();
 	}

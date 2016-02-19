@@ -15,34 +15,28 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class EcartPanel extends JPanel {
 	private JLabel jl;
-	private String classe;
+	private String classe, meth;
 	private JSlider js;
 	@SuppressWarnings("unchecked")
 	public EcartPanel(TreeMap<String,String> type){
-		jl = new JLabel(type.get("label"));
-		classe = type.get("classe");
-		add(jl);
-
+		classe = type.get("classe"); meth = type.get("methodOptions");
+		jl = new JLabel(type.get("label"));add(jl);
 		UserPanel.custom_demand.setField(classe, 0);
+		
 		try {
 			Constructor<?> constructors = 
-					Class.forName("supply.S"+type.get("classe"))
-					.getDeclaredConstructor(String.class); 
+					Class.forName("supply.S"+classe).getDeclaredConstructor(String.class); 
 			Object obj = constructors.newInstance("");
 			Method getOptions = 
-					Class.forName("supply.S"+type.get("classe"))
-					.getDeclaredMethod(type.get("methods"));
-			ArrayList<String> options = (ArrayList<String>) getOptions.invoke(obj);
+					Class.forName("supply.S"+classe).getDeclaredMethod(meth);
 			
+			ArrayList<String> options = (ArrayList<String>) getOptions.invoke(obj);
 			js = new JSlider(0,options.size()-1);
 			Hashtable<Integer,JLabel> labelTable = new Hashtable<>();
+			
 			int i = 0;
-			System.out.println(classe);
 			for(String s : options){
-				//float index = (float)i/options.size();
-				System.out.println(s+" à " +(int) i);
-				labelTable.put(new Integer(i), new JLabel(s));
-				i++;
+				labelTable.put(new Integer(i), new JLabel(s)); i++;
 			}
 			js.setLabelTable(labelTable);
 			js.setMajorTickSpacing(1);
@@ -54,14 +48,12 @@ public class EcartPanel extends JPanel {
 				public void stateChanged(ChangeEvent arg0) {
 					JSlider source = (JSlider) arg0.getSource();
 					int value = source.getValue();
-					System.out.println(value);
 					UserPanel.custom_demand.setField(classe, value);
 				}
 				
 			});
 			add(js);
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

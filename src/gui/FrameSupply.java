@@ -40,7 +40,7 @@ public class FrameSupply extends JFrame{
 		
 		// Eléments de la fenêtre
 		save = new JButton("Enregistrer"); add(save, BorderLayout.SOUTH);
-		//save.setEnabled(false);
+		
 		String[] main_infos;
 		String[] aux_infos;
 		

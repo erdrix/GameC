@@ -5,9 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import bd.Connexion;
 import comparator.Comparator;
@@ -21,6 +26,7 @@ public class UserPanel extends JPanel {
 	public static Demand custom_demand;
 	private static ArrayList<Supply> result;
 	
+	@SuppressWarnings("unchecked")
 	public UserPanel(HomeFrame frame, Dimension d, Connexion connexion){
 		HeadPanel head = new HeadPanel(d, "Comparateur de jeux vidéos",new Color(181,94,94), frame ); 
 
@@ -35,25 +41,31 @@ public class UserPanel extends JPanel {
 			}
 			
 		});
-		String[] main_infos = { "DTitle","DEditor",
-								"DPrice","DReleaseDate",
-								"DGameStyle","DStoryType",
-								"DGameType","DMark"};
+		String[] main_infos;
+		String[] aux_infos;
 		
-		String[] aux_infos = {	"DDescription","DAccessory",
-								"DDifficulty","DBuyMethod",
-								"DLifeTime","DGameSupport"};
-		cp = new InformationsPanel(main_infos,aux_infos);		
-		add(head, BorderLayout.NORTH);
-		add(cp,BorderLayout.CENTER);
+		JSONParser parser = new JSONParser();
+		try{
+			Object obj = parser.parse(new FileReader("./src/config.json"));
+			JSONObject jsonObject = (JSONObject) obj;
+			JSONObject interf= (JSONObject) jsonObject.get("Interface");
+			JSONArray objP = (JSONArray) interf.get("Principal"); 
+			main_infos = new String[objP.size()]; objP.toArray(main_infos);
+			objP = (JSONArray) interf.get("Secondaire"); 
+			aux_infos = new String[objP.size()]; objP.toArray(aux_infos);
+			cp = new InformationsPanel(main_infos,aux_infos);		
+			add(head, BorderLayout.NORTH);
+			add(cp,BorderLayout.CENTER);
+		}catch(Exception e){e.printStackTrace();}		
+		
 		bp.applybutton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				result = new ArrayList<>();
 				connexion.connect();
 				ArrayList<Supply> supplies = connexion.getSupply();
+				connexion.close();
 				Comparator comparator = new Comparator(supplies,custom_demand);
 				result = comparator.getListeSupply();
 				comparator.afficherScore();

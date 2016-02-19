@@ -5,26 +5,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TreeMap;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.border.EtchedBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import supply.Supply;
 
+@SuppressWarnings("serial")
 public class SIntervallePanel extends JPanel {
 	private JLabel jl;
-	private String classe;
+	private String classe, meth;
 	private JTextField jtf;
 	private Supply supply;
 	private int[] limits;
@@ -32,34 +30,30 @@ public class SIntervallePanel extends JPanel {
 	public SIntervallePanel(JButton save, TreeMap<String, String> t, Supply s)
 	{
 		jl = new JLabel(t.get("label"));
-		classe = t.get("classe");
+		classe = t.get("classe"); meth = t.get("methodOptions");
 		supply = s; 
 		add(jl);
 		Constructor<?> constructors;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			constructors = Class.forName("supply.S"+t.get("classe"))
-			.getDeclaredConstructor(float.class);
+			constructors = Class.forName("supply.S"+classe).getDeclaredConstructor(float.class);
 		
 			Object obj = constructors.newInstance(0.f);
 			Method getIntervalle = 
-					Class.forName("supply.S"+t.get("classe"))
-					.getDeclaredMethod(t.get("methodOptions"));
+					Class.forName("supply.S"+classe).getDeclaredMethod(meth);
 			limits = (int[])getIntervalle.invoke(obj);
 			Class<?> c = supply.getClass();
 			Method m = c.getMethod("get"+classe);
 			
 			jtf = new JTextField(12);
-			System.out.println(classe);
 			if(!classe.equals("ReleaseDate"))
 			{
 				float value = (float) m.invoke(supply);
 				jtf.setText(""+value);
 			}
 			else
-			{
 				jtf.setText(sdf.format(((Calendar)m.invoke(supply)).getTime()));
-			}
+
 				
 			
 			save.addActionListener(new ActionListener(){

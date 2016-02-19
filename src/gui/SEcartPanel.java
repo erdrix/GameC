@@ -26,9 +26,9 @@ public class SEcartPanel extends JPanel{
 	public SEcartPanel(JButton save, TreeMap<String, String> t, Supply s)
 	{
 		jl = new JLabel(t.get("label"));
-		classe = t.get("classe");
-		meth = t.get("methodOptions");
+		classe = t.get("classe"); meth = t.get("methodOptions");
 		supply = s;
+		
 		GridBagConstraints gbc = new GridBagConstraints();
 		setLayout(new GridBagLayout());
 		gbc.gridx = 0; gbc.gridy = 0;

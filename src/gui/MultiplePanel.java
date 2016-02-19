@@ -14,26 +14,21 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MultiplePanel extends JPanel {
-	private String classe;
+	private String classe, meth;
 	private JLabel jl;
 	private JPanel jp;
 	
 	@SuppressWarnings("unchecked")
 	public MultiplePanel(TreeMap<String,String> type){
-		classe = type.get("classe");
-		jl = new JLabel(type.get("label"));
-		add(jl);		
+		classe = type.get("classe"); meth = type.get("methodOptions");
+		jl = new JLabel(type.get("label")); add(jl);		
 		
 		try {
-			Constructor<?> constructors = 
-					Class.forName(("supply.S"+type.get("classe")).replace("DStoryType","SStoryType"))
-					.getDeclaredConstructor((new ArrayList<String>()).getClass());
+			Constructor<?> constructors = Class.forName(("supply.S"+classe)).getDeclaredConstructor((new ArrayList<String>()).getClass());
 			ArrayList<String> options = new ArrayList<>();			
 			Object obj = constructors.newInstance(options);
 			Method getOptions = 
-					Class.forName("supply.S"+type.get("classe"))
-					.getDeclaredMethod(type.get("methods"));
-			System.out.println(getOptions.toString());
+					Class.forName("supply.S"+classe).getDeclaredMethod(meth);
 			options = (ArrayList<String>) getOptions.invoke(obj);
 			Integer i = 0;
 			jp = new JPanel();
@@ -47,23 +42,18 @@ public class MultiplePanel extends JPanel {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
 						Integer value = Integer.parseInt(jcb.getActionCommand());
 						if(jcb.isSelected()){
 							if(!selected_values.contains(value)) selected_values.add(value);							
 						}else selected_values.remove(value);
-						UserPanel.custom_demand.setField(classe, selected_values);
-						
+						UserPanel.custom_demand.setField(classe, selected_values);	
 					}
-					
 				});
 				i++;
-				jp.add(jcb);
-				add(jp);
+				jp.add(jcb); add(jp);
 			}
 			
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

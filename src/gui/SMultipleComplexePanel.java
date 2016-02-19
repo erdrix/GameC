@@ -1,18 +1,12 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.TreeMap;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -20,24 +14,20 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-
 import supply.Supply;
 
 @SuppressWarnings("serial")
 public class SMultipleComplexePanel extends JPanel{
 	private JLabel jl;
-	private String classe;
+	private String classe, meth, methChoix;
 	private ArrayList<JCheckBox> jb;
 	private TreeMap<String, JList<String>> jList;
 	private Supply supply;
-	private String meth;
-	private String methChoix;
 	@SuppressWarnings("unchecked")
 	public SMultipleComplexePanel(JButton save, TreeMap<String, String> t, Supply s)
 	{
+		classe = t.get("classe"); meth = t.get("methodOptions"); methChoix = t.get("methodChoix");
 		jl = new JLabel(t.get("label"));
-		classe = t.get("classe");
-		meth = t.get("methodOptions"); methChoix = t.get("methodChoix");
 		jList = new TreeMap<>();
 		supply = s;
 		
@@ -46,7 +36,6 @@ public class SMultipleComplexePanel extends JPanel{
 			Class<?> c = supply.getClass();
 			Method m = c.getMethod("get"+classe);
 			TreeMap<String, ArrayList<TreeMap<String, String>>> value = (TreeMap<String, ArrayList<TreeMap<String, String>>>) m.invoke(supply);
-			System.out.println("Supply.S"+classe+"  "+methChoix);
 			Method getChoix = Class.forName("supply.S"+classe).getDeclaredMethod(methChoix);
 			Method getOption = Class.forName("supply.S"+classe).getDeclaredMethod(meth);
 
@@ -59,7 +48,7 @@ public class SMultipleComplexePanel extends JPanel{
 			{
 				test = false;
 				
-				JPanel pan = new JPanel();//pan.setLayout(new BorderLayout());
+				JPanel pan = new JPanel();
 				ArrayList<TreeMap<String, String>> elmts = choix.get(o);
 				
 				
@@ -85,7 +74,7 @@ public class SMultipleComplexePanel extends JPanel{
 				list.setLayoutOrientation(JList.VERTICAL);
 				if(!test) list.setEnabled(false); jList.put(o, list);
 				JScrollPane js = new JScrollPane(list);
-				js.setPreferredSize(new Dimension(150,25));
+				js.setPreferredSize(new Dimension(170,25));
 				pan.add(js);
 				ArrayList<Integer> items = new ArrayList<>();
 				if(supply.getIdOffre()!=-1 && value.get(o) != null)

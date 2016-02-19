@@ -20,25 +20,21 @@ public class BinaryPanel extends JPanel {
 	private JLabel jl;
 	private ButtonGroup bg;
 	private JPanel jp;
+	private String meth;
 	@SuppressWarnings("unchecked")
 	public BinaryPanel(TreeMap<String,String> type){
-		classe = type.get("classe");
-		System.out.println(classe);
-		jl = new JLabel(type.get("label"));
-		add(jl);
+		
+		classe = type.get("classe"); meth = type.get("methodOptions");
+		jl = new JLabel(type.get("label")); add(jl);
 		try {
 			Constructor<?> constructors = 
-					Class.forName("supply.S"+type.get("classe").replace("DBuyMethod","SBuyMethod").replace("DGameType","SGameType"))
-					.getDeclaredConstructor(String.class); 
+					Class.forName("supply.S"+classe).getDeclaredConstructor(String.class); 
 			Object obj = constructors.newInstance("");
 			Method getOptions = 
-					Class.forName("supply.S"+type.get("classe").replace("DBuyMethod","SBuyMethod").replace("DGameType","SGameType"))
-					.getDeclaredMethod(type.get("methods"));
+					Class.forName("supply.S"+classe).getDeclaredMethod(meth);
 			ArrayList<String> options = (ArrayList<String>) getOptions.invoke(obj);
 			HashSet<String> tri = new HashSet<>(options);
 			options = new ArrayList<String>(tri);
-			
-			
 			
 			UserPanel.custom_demand.setField(classe, 0);
 			bg = new ButtonGroup();
@@ -51,24 +47,16 @@ public class BinaryPanel extends JPanel {
 				i++;
 				jrb.setSelected(true);
 				jrb.addActionListener(new ActionListener(){
-
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
 						Integer value = Integer.valueOf(jrb.getActionCommand());
-						System.out.println(value);
-						UserPanel.custom_demand.setField(classe, value);
-						
-					}
-					
+						UserPanel.custom_demand.setField(classe, value);	
+					}	
 				});
-				jp.add(jrb);
-				bg.add(jrb);
-				add(jp);
+				jp.add(jrb); bg.add(jrb); add(jp);
 			}
 			
 		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

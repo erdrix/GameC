@@ -15,39 +15,30 @@ public class KeywordPanel extends JPanel {
 	private JTextField jtf;
 	
 	public KeywordPanel(TreeMap<String,String> t){
-		jl = new JLabel(t.get("label"));
+		
+		jl = new JLabel(t.get("label")); add(jl);
 		classe = t.get("classe");
-		add(jl);
+		
 		UserPanel.custom_demand.setField(classe, "");
 		jtf = new JTextField(12);
 		jtf.getDocument().addDocumentListener(new DocumentListener(){
 
 			@Override
-			public void changedUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void changedUpdate(DocumentEvent e) {}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
 				String s = new String(jtf.getText());
 				UserPanel.custom_demand.setField(classe, s);
-				System.out.println(UserPanel.custom_demand.getTitle());
-				System.out.println(s);
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
 				String s = new String(jtf.getText());
 				UserPanel.custom_demand.setField(classe, s);
-				System.out.println(s);
 			}
 			
 		});
-			
-		
 		add(jtf);
 	}
 }

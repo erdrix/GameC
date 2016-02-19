@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import bd.Connexion;
 
@@ -82,7 +83,6 @@ public class HomeFrame extends GUIMainFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				up.setVisible(false);
 				rp = new ResultPanel(HomeFrame.me, HomeFrame.d, up.getResult());
 				rp.setVisible(true);
@@ -95,7 +95,6 @@ public class HomeFrame extends GUIMainFrame{
 		/*up.getBP().logoutbutton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				Object[] options = {"Annuler","Déconnexion"};
 				int choice = JOptionPane.showOptionDialog(up, 
 						"Êtes-vous sûr de vouloir vous déconnecter?", "Déconnexion", 
