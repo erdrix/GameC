@@ -25,12 +25,18 @@ public class HomeFrame extends GUIMainFrame{
 		setLayout(new BorderLayout());
 		
 		me= this;
-
+		// Création de la barre de menu
 		setJMenuBar(new GUIMenu());
+		
+		// Création des différents panels de l'IHM
 		hp = new HomePanel();
 		ap = new AuthPanel();
        	up = new UserPanel(this,d,c);
+       	rp = new ResultPanel();
+       	adp = new AdminPanel();
 		add(hp,BorderLayout.CENTER);
+		
+		// Passage Home => Authentification
 		hp.homebutton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -41,6 +47,7 @@ public class HomeFrame extends GUIMainFrame{
 			
 		});
 		
+		// Passage Authentification => Comparateur
 		ap.buser.addActionListener(
             new ActionListener(){
 				@Override
@@ -58,7 +65,7 @@ public class HomeFrame extends GUIMainFrame{
 				}
             });;		
             
-            
+        // Passage Authentification => Panneau d'administration
     	ap.badmin.addActionListener(
             new ActionListener(){
 				@Override
@@ -77,42 +84,29 @@ public class HomeFrame extends GUIMainFrame{
 				}
             });;
 		
+		// Passage Comparateur => Résultats
         up.bp.applybutton.addActionListener(new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				up.setVisible(false);
-				rp = new ResultPanel(HomeFrame.me, HomeFrame.d, up.getResult());
-				rp.setVisible(true);
-				add(rp);
-				setTitle("Le Hoatton - Résultats");
-				
-			}
-        	
-        });
-		/*up.getBP().logoutbutton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Object[] options = {"Annuler","Déconnexion"};
-				int choice = JOptionPane.showOptionDialog(up, 
-						"Êtes-vous sûr de vouloir vous déconnecter?", "Déconnexion", 
-						JOptionPane.YES_NO_CANCEL_OPTION, 
-						JOptionPane.WARNING_MESSAGE,
-						null,
-						options,
-						options[0]
-						);
-				if(choice == JOptionPane.NO_OPTION){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
 					up.setVisible(false);
-					ap.setVisible(true);
-	            	setTitle("Le Hoatton");
+					rp = new ResultPanel(HomeFrame.me, HomeFrame.d, UserPanel.custom_demand);
+					rp.setVisible(true);
+					add(rp);
+					setTitle("Le Hoatton - Résultats");
+					
 				}
 				
-				
-			}
-		});*/
+        });		
 		setVisible(true);		
 	}
+	
+	//*******************************************//
+	// FONCTION POUR RELOAD LES PANEL EN CAS     //
+	// DE CHANGEMENT DE VALEURS DANS LES CHAMPS  //
+	//*******************************************//
+
 	public void reloadAdminPanel()
 	{
 		adp.setVisible(false);
@@ -125,9 +119,31 @@ public class HomeFrame extends GUIMainFrame{
 	
 	public void reloadMenuPanel()
 	{
+		rp.setVisible(false);
 		adp.setVisible(false);
 		up.setVisible(false);
 		hp.setVisible(false);
 		ap.setVisible(true);
+	}
+	public void reloadUserPanel()
+	{
+		rp.setVisible(false);
+		adp.setVisible(false);
+		up.setVisible(true);
+		hp.setVisible(false);
+		ap.setVisible(false);
+	}
+	public void reloadResultPanel()
+	{
+		
+		rp.setVisible(false);
+		remove(rp);
+		rp = new ResultPanel(HomeFrame.me, HomeFrame.d, UserPanel.custom_demand);
+		rp.setVisible(true);
+		adp.setVisible(false);
+		up.setVisible(false);
+		hp.setVisible(false);
+		ap.setVisible(false);
+		add(rp);
 	}
 }

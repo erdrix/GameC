@@ -151,7 +151,7 @@ public class SupplyPanel extends JPanel {
 		gbc.gridx = 1; gbc.gridy = 4; gbc.gridwidth = 3 ; gbc.insets.left = 4;
 		add(lMode, gbc);
 		
-		// Affichage du bouton de suppression
+		// Affichage du bouton de mise à jour
 		JButton update = new JButton("MODIFIER");
 		update.setFocusPainted(false);
 		update.setForeground(Color.WHITE);

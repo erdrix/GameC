@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
@@ -19,10 +21,13 @@ import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import bd.Connexion;
 import supply.Supply;
 
 @SuppressWarnings("serial")
@@ -30,7 +35,7 @@ public class ComparatorPanel extends JPanel {
 	
 	private Dimension d;
 	private Color couleur;
-	public ComparatorPanel(Supply s, Dimension dim)
+	public ComparatorPanel(Supply s, Dimension dim, int i, HomeFrame frame)
 	{
 		d= dim;
 		couleur = new Color(238,238,238);
@@ -40,7 +45,7 @@ public class ComparatorPanel extends JPanel {
 		setLayout(new GridBagLayout());
     	
     	// On positionne le titre
-    	JLabel sTitle = new JLabel(s.getTitle());
+    	JLabel sTitle = new JLabel(i+" - "+s.getTitle());
     	sTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
     	sTitle.setPreferredSize(new Dimension(((int) (4*(d.getWidth()-25)/5)), 28));
     	gbc.gridx = 0;
@@ -123,6 +128,17 @@ public class ComparatorPanel extends JPanel {
 		gbc.gridx = 1; gbc.gridy = 3; gbc.gridwidth = 3 ;
 		add(lGenre, gbc);
 		
+		// Affichage du bouton de suppression
+		JButton reservation = new JButton("RESERVER");
+		reservation.setFocusPainted(false);
+		reservation.setForeground(Color.WHITE);
+		reservation.setBackground(new Color(234, 49 ,49));
+		reservation.setPreferredSize(new Dimension(105, 24));
+		gbc.gridx = 4;
+		gbc.gridy = 3;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		add(reservation, gbc);
+		
 		// Affichage du mode
 		JLabel lMode = new JLabel("<html><font size=\"4\" color=\"rgb(92,106,192)\"><b>Mode : </b></font>"+s.getGameType()+"</html>");
 		lMode.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -130,7 +146,14 @@ public class ComparatorPanel extends JPanel {
 		lMode.setHorizontalAlignment(JLabel.LEFT);
 		gbc.gridx = 1; gbc.gridy = 4; gbc.gridwidth = 3 ; gbc.insets.left = 4;
 		add(lMode, gbc);
-
+		
+		// Affichage du bouton de mise à jour
+		JLabel qte = new JLabel("Quantité : "+s.getQuantite());
+		gbc.gridx = 4;
+		gbc.gridy = 4;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		add(qte, gbc);
+		
 		// Affichage du Paiment
 		JLabel lPaiement = new JLabel("<html><font size=\"4\" color=\"rgb(92,106,192)\"><b>Paiement : </b></font>"+s.getBuyMethod()+"</html>");
 		lPaiement.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -149,6 +172,24 @@ public class ComparatorPanel extends JPanel {
 		gbc.gridx = 0; gbc.gridy = 6; gbc.gridheight = 2; gbc.gridwidth =  GridBagConstraints.REMAINDER;
 		add(lDesc, gbc);	
 		repaint();
+		
+		reservation.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				Connexion connexion = new Connexion();
+				connexion.connect();
+				Object[] options =  new String[]{"RESERVER","ANNULER"};
+				String message = "Voulez-vous vraiment réserver "+s.getTitle()+" ?";
+				int i = JOptionPane.showOptionDialog(null, message, "Réservation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,options, options[1] );
+				if(i == 0) 
+				{
+					connexion.connect();
+					connexion.reservationById(s.getIdOffre());
+				}
+				connexion.close();
+				frame.reloadResultPanel();
+			}
+		});
 		
 		addMouseListener(new MouseAdapter(){
 			public void mouseEntered(MouseEvent e){couleur = new Color(225,225,225); repaint();}

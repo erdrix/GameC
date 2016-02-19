@@ -26,6 +26,7 @@ public abstract class KeywordScore extends Score<String>{
 		// Mots-clés de chaque champ
 		String[] s_split = element.split(" ");
 		String[] d_split = extractD(myDemand).split(" ");
+		if(d_split == null) return score = 0;
 		
 		TreeMap<String,Integer> supply_occur = new TreeMap<String,Integer>();
 		for(int i = 0; i < s_split.length; i++){

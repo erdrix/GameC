@@ -2,11 +2,13 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -23,6 +25,13 @@ public class HeadPanel extends JPanel{
 		
 		// Définition du retour
 		JPanel retour = new JPanel();
+		JLabel rtr_lbl = new JLabel("Retour");
+		rtr_lbl.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		rtr_lbl.setHorizontalAlignment(JLabel.CENTER);
+		rtr_lbl.setVerticalAlignment(JLabel.CENTER);
+		rtr_lbl.setForeground(Color.WHITE);
+		rtr_lbl.setPreferredSize(new Dimension((int) ((getPreferredSize().getWidth()-2))-headerSize-30,45));
+		retour.add(rtr_lbl);
 		retour.setBackground(new Color(67,60,60));
 		retour.setPreferredSize(new Dimension((int) (getPreferredSize().getWidth()-headerSize-10),60));
 		// On définit le Layout manager
@@ -48,7 +57,6 @@ public class HeadPanel extends JPanel{
 		
 		retour.addMouseListener( new MouseAdapter(){
 			public void mouseReleased(MouseEvent e){
-				System.out.println("test");
 				frame.reloadMenuPanel();
 				
 			}

@@ -15,7 +15,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import bd.Connexion;
-import comparator.Comparator;
 import demand.Demand;
 import supply.Supply;
 
@@ -24,7 +23,7 @@ public class UserPanel extends JPanel {
 	private InformationsPanel cp;
 	public ButtonPanel bp;
 	public static Demand custom_demand;
-	private static ArrayList<Supply> result;
+	public static ArrayList<Supply> result;
 	
 	@SuppressWarnings("unchecked")
 	public UserPanel(HomeFrame frame, Dimension d, Connexion connexion){
@@ -32,6 +31,7 @@ public class UserPanel extends JPanel {
 
 		setLayout(new BorderLayout());
 		custom_demand = new Demand();
+		result = new ArrayList<Supply>();
 		bp = new ButtonPanel(d);
 		bp.applybutton.addActionListener(new ActionListener(){
 
@@ -58,20 +58,7 @@ public class UserPanel extends JPanel {
 			add(cp,BorderLayout.CENTER);
 		}catch(Exception e){e.printStackTrace();}		
 		
-		bp.applybutton.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				result = new ArrayList<>();
-				connexion.connect();
-				ArrayList<Supply> supplies = connexion.getSupply();
-				connexion.close();
-				Comparator comparator = new Comparator(supplies,custom_demand);
-				result = comparator.getListeSupply();
-				comparator.afficherScore();
-			}
-			
-		});
+		
 		add(bp,BorderLayout.SOUTH);
 	}
 	

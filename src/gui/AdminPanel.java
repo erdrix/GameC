@@ -22,6 +22,9 @@ public class AdminPanel extends JPanel {
 	private Dimension dim;
 	private Connexion connexion;
 	private HomeFrame frame;
+	public AdminPanel(){
+		
+	}
 	public AdminPanel(Dimension d, Connexion c, HomeFrame f){
 		connexion = c;
 		frame = f;
@@ -49,6 +52,7 @@ public class AdminPanel extends JPanel {
 	    add.setBackground(new Color(128,214, 160)); add.setForeground(Color.WHITE);
 	    add.setFont(new Font("Segoe UI", Font.BOLD, 14));add.setFocusPainted(false);
 	    JScrollPane sSupplies = new JScrollPane(body);
+	    sSupplies.getVerticalScrollBar().setUnitIncrement(16);
 	    add(head, BorderLayout.NORTH); add(sSupplies, BorderLayout.CENTER); add(add, BorderLayout.SOUTH);
 
 	    add.addActionListener(new ActionListener(){

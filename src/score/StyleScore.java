@@ -21,14 +21,23 @@ public abstract class StyleScore extends Score<String>{
 	public abstract TreeMap<String, String> getListe();
 	@Override
 	public int getScore(DemandMethods myDemand) {
-		d_style = myDemand.getGameStyle();
+		d_style = extractD(myDemand);
+		// Si le champ à remplir est vide
+		if(d_style == null) return score = 0;
+		
+		// Si le style choisi est exactement celui de l'offre courante : score maximal
 		if(s_style == d_style && style_tree.containsKey(s_style)) return score = 100;
+		
+		// Rapprochement entre les styles
 		else if(style_tree.containsKey(s_style) && style_tree.containsKey(d_style)){
+			// Récupération des groupes de styles de l'offre et de la demande
 			String[] s_groups = style_tree.get(s_style).toLowerCase().split(", ");
 			String[] d_groups = style_tree.get(d_style).toLowerCase().split(", ");
-			for(int i = 0; i < s_groups.length;i++)System.out.println(s_groups[i]);
-			for(int i = 0; i < d_groups.length;i++)System.out.println(d_groups[i]);
+			
+			// Même groupe principal
 			if(s_groups[0].equals(d_groups[0])) return score = 50;
+			
+			// Même groupe secondaire
 			for(int i = 1; i < s_groups.length; i++)
 				for(int j = 1; j < d_groups.length;j++)
 					if(s_groups[i].equals(d_groups[j])) return score = 25;

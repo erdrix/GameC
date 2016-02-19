@@ -48,6 +48,7 @@ public abstract class MultipleComplexeScore extends Score<ArrayList<TreeMap<Stri
 		// On récupère l'ensemble des choix du client
 		
 		ArrayList<TreeMap<String, String>> fields = extractD(myDemand);
+		if(fields == null) return score = 0;
 		ArrayList<String> typeE = getTypeE();
 		String type="";
 		float cpt = 0; // Compteur servant à connaitre le nombre d'élément de la demande présent dans équipement.		

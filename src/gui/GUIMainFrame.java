@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 public class GUIMainFrame extends JFrame{
 	protected static Dimension d;
 	public GUIMainFrame(){
+		// Création de la fenêtre du programme avec ses dimensions
 		setLayout(new BorderLayout() );
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		d = tk.getScreenSize();

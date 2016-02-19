@@ -22,6 +22,7 @@ public abstract class MultipleScore extends Score<int[]>{
 	public int getScore(DemandMethods myDemand) {
 
 		int[] field = extractD(myDemand);
+		if(field.length == 0) return score = 0;
 		ArrayList<String> typeS = getType();
 		int cpt = 0;
 		boolean find;

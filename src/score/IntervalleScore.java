@@ -36,7 +36,7 @@ public abstract class IntervalleScore extends Score<Intervalle> {
 	public int getScore(DemandMethods myDemand)
 	{
 		Intervalle field = extractD(myDemand);
-		
+		if(field==null) return score = 0;
 		// Si la valeur est dans l'intervalle demandé.
 		if(val >= field.getFirst() && val<=field.getSecond())
 			return score = scoreMax;

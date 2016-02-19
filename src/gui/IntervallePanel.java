@@ -21,8 +21,7 @@ public class IntervallePanel extends JPanel{
 	
 	public IntervallePanel(TreeMap<String,String> type){
 		classe = type.get("classe"); meth = type.get("methodOptions");
-		jl = new JLabel(type.get("label")); add(jl);		
-		
+		jl = new JLabel(type.get("label")); add(jl);	
 		try {
 			Constructor<?> constructors = 
 					Class.forName("supply.S"+classe).getDeclaredConstructor(float.class); 
@@ -46,7 +45,7 @@ public class IntervallePanel extends JPanel{
 					int value = source.getValue();
 					float min = (float)value - intervalle;
 					float max = (float)value + intervalle; 
-					
+					System.out.println(min+" "+max);
 					UserPanel.custom_demand.setField(classe, new Intervalle(min,max));
 					
 					
