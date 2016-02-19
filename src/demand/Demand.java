@@ -40,7 +40,6 @@ public class Demand implements DemandMethods{
 	private DStoryType dst;		// Ensemble des styles d'histoire.
 	private DGameSupport dgs;	// Ensemble des supports compatibles avec le jeu.
 	private DAccessory dacce;	// Ensemble des accessoires permettant de jouer au jeu.
-	private DSale[] dsa;		// Ensemble des lieux de vente acceptés.
 
 		// CONSTRUCTUEUR
 	public Demand(){
@@ -64,7 +63,7 @@ public class Demand implements DemandMethods{
 	 * @param sa    : DSale objet contenant l'ensemblre des lieu de ventes voulus.
 	 * @param nSale : int nombre de lieux de ventes sélectionnés par le client.
 	 */
-	public Demand(DTitle title, DDescription desc, DEditor edit, DMark mark, DReleaseDate rd, DGameType gt, DBuyMethod bm, DDifficulty diff, DLifeTime lt, DGameStyle gst, DStoryType st, DGameSupport gs, DAccessory acce, DSale[] sa, int nSale)
+	public Demand(DTitle title, DDescription desc, DEditor edit, DMark mark, DReleaseDate rd, DGameType gt, DBuyMethod bm, DDifficulty diff, DLifeTime lt, DGameStyle gst, DStoryType st, DGameSupport gs, DAccessory acce)
 	{
 		dtitle = title;
 		ddesc  = desc;
@@ -79,10 +78,6 @@ public class Demand implements DemandMethods{
 		dst    = st;
 		dgs    = gs;
 		dacce  = acce;
-		
-		dsa = new DSale[nSale];
-		for (int i=0; i < nSale; i++)
-			dsa[i] = sa[i];
 	}
 
 	// METHODES

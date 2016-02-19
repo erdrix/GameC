@@ -6,7 +6,7 @@ import score.StyleScore;
 
 public class SGameStyle extends StyleScore{
 	private static TreeMap<String, String> options = new TreeMap<>();
-	public SGameStyle(String s1) { super(s1);}
+	public SGameStyle(String s1) { super(s1); scoreMax = 170;}
 	
 	public String extractD(DemandMethods myDemand) { return myDemand.getGameStyle();} 
 	public String getGameStyle(){return s_style;}

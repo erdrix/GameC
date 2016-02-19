@@ -14,7 +14,7 @@ import score.BinaryScore;
 public class SGameType extends BinaryScore {
 	// CONSTRUCTEURS
 	static ArrayList<String> options = new ArrayList<>();
-	public SGameType(String m){super(m, options);}
+	public SGameType(String m){super(m, options); scoreMax = 60;}
 
 	public Integer extractD(DemandMethods myDemand) {return myDemand.getDGameType();}
 

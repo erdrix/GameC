@@ -14,7 +14,7 @@ import score.EcartScore;
 public class SLifeTime extends EcartScore{
 	private static ArrayList<String> options = new ArrayList<String>();
 		// CONSTRUCTEUR
-	public SLifeTime(String c){super(c,0.3,options);}
+	public SLifeTime(String c){super(c,0.3,options); scoreMax = 80;}
 	
 		// METHODE
 	/**

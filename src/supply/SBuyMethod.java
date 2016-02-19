@@ -22,7 +22,7 @@ public class SBuyMethod extends BinaryScore{
 	 * @param c    : forme de paiement pour ce jeu.c
 	 */
 	public SBuyMethod(String c){super(c, options);}
-	public SBuyMethod(SPrice prix, String c){ super(c, options); price = prix;}
+	public SBuyMethod(SPrice prix, String c){ super(c, options); price = prix; scoreMax = 50;}
 
 		// METHODES
 	/**

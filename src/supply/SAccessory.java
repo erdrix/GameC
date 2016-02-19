@@ -16,7 +16,7 @@ public class SAccessory extends SEquipement {
 	static protected TreeMap<String, ArrayList<TreeMap<String, String>>> assoc;
 	
 		// CONSTRUCTEUR
-	public SAccessory(ArrayList<TreeMap<String, String>>items) {super(items);}
+	public SAccessory(ArrayList<TreeMap<String, String>>items) {super(items); scoreMax = 70;}
 	
 		// METHODES
 	static public void Init(ArrayList<TreeMap<String, String>> items)

@@ -10,9 +10,7 @@ import java.util.Calendar;
 public class SReleaseDate extends IntervalleScore{
 		// CONSTRUCTEUR
 	public SReleaseDate(Calendar d){super(d.getTimeInMillis()); desc = false;}
-	public SReleaseDate(float f){
-		super(0L);
-		}
+	public SReleaseDate(float f){super(0L); scoreMax = 60;}
 	
 		// METHODES
 	public Intervalle extractD(DemandMethods myDemand){return myDemand.getReleaseDate();}

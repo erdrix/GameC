@@ -4,7 +4,7 @@ import score.IntervalleScore;
 
 public class SMark extends IntervalleScore{
 		// CONSTRUCTEUR
-	public SMark(float m){super(m); desc = false;}
+	public SMark(float m){super(m); desc = false; scoreMax = 100;}
 	
 		// METHODE
 	public Intervalle extractD(DemandMethods myDemand){return myDemand.getMark();}

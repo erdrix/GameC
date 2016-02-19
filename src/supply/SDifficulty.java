@@ -15,7 +15,7 @@ public class SDifficulty extends EcartScore{
 		// CONSTRUCTEUR
 	private static ArrayList<String> options = new ArrayList<String>();
 	
-	public SDifficulty(String c) {super(c,0.3, options);}
+	public SDifficulty(String c) {super(c,0.3, options); scoreMax = 100;}
 	
 		// METHODE
 	/**

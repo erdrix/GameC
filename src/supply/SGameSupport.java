@@ -16,7 +16,7 @@ public class SGameSupport extends SEquipement{
 	static protected TreeMap<String, ArrayList<TreeMap<String, String>>> assoc;
 	
 		// CONSTRUCTEUR
-	public SGameSupport(ArrayList<TreeMap<String, String>> items) {super(items);}
+	public SGameSupport(ArrayList<TreeMap<String, String>> items) {super(items); scoreMax = 100;}
 	
 		// METHODES
 	static public void Init(ArrayList<TreeMap<String, String>> items)
