@@ -509,4 +509,16 @@ public class Connexion {
 		} catch (SQLException e) {e.printStackTrace();}
 		return retour;
 	}
+	
+	public void reservationById(int numOffre)
+	{
+		ArrayList<Supply> supplies = getSupply();
+		for(Supply s : supplies)
+			if(s.getIdOffre()== numOffre)
+			{
+				s.setQuantite(s.getQuantite()-1);
+				updateSupply(s);
+				break;
+			}
+	}
 }
