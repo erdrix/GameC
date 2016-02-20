@@ -321,11 +321,11 @@ public class Connexion {
 	
 	public void insertSupply(Supply s){
 		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
-		int numEditeur = getEditorByName(s.getEditor());
+		int numEditeur = getEditorByName(s.getEditor().replace("'", "''"));
 		String query = "INSERT INTO Supplies (titre, description, prix, note, styleJeu, dateSortie, difficulte, modePaiement, dureeVie, modeJeu, lienImage, numEditeur, quantite) "+
 						"VALUES ('"+
-							s.getTitle()+"','"+
-							s.getDescription()+"',"+
+							s.getTitle().replace("'", "''")+"','"+
+							s.getDescription().replace("'", "''")+"',"+
 							s.getPrice()+","+
 							s.getMark()+",'"+
 							s.getGameStyle()+"','"+
@@ -391,9 +391,9 @@ public class Connexion {
 	public void updateSupply(Supply s)
 	{
 		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
-		int numEditeur = getEditorByName(s.getEditor());
+		int numEditeur = getEditorByName(s.getEditor().replace("'", "''"));
 		String query = "UPDATE Supplies SET "+
-							"titre = '"+ s.getTitle()+
+							"titre = '"+ s.getTitle().replace("'", "''")+
 							"', description = '"+s.getDescription().replace("'", "''")+
 							"', prix = '"+s.getPrice()+
 							"', note = '"+s.getMark()+
