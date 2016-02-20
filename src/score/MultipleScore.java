@@ -41,6 +41,6 @@ public abstract class MultipleScore extends Score<int[]>{
 				}
 			}
 		}
-		return score = (100*cpt)/field.length;
+		return score = (scoreMax*cpt)/field.length;
 	}
 }

@@ -44,7 +44,7 @@
 
 		},
 	"BuyMethod": ["Abonnement", "Licence", "Gratuit"],
-	"Difficulty": ["Facile", "Moyen", "Difficile", "Expert"],
+	"Difficulty": ["Facile", "Moyen", "Difficile", "Expert", "Test"],
 	"GameType": ["Hors Ligne", "En Ligne"],
 	"LifeTime": ["Courte", "Moyenne", "Longue", "Infinie"],
 	"GameStyle":

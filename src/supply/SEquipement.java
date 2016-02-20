@@ -14,9 +14,6 @@ import score.MultipleComplexeScore;
  *
  */
 public abstract class SEquipement extends MultipleComplexeScore{
-		// ATTRIBUTS
-	protected TreeMap<String, ArrayList<TreeMap<String, String>>> equipements;
-	
 		// CONSTRUCTEUR
 	public SEquipement(ArrayList<TreeMap<String, String>> items)
 	{

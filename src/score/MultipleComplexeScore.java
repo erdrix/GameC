@@ -13,8 +13,6 @@ public abstract class MultipleComplexeScore extends Score<ArrayList<TreeMap<Stri
 	protected TreeMap<String, ArrayList<TreeMap<String, String>>> equipements;
 	
 		// MATHODES
-	@Override
-	public abstract ArrayList<TreeMap<String, String>> extractD(DemandMethods myDemand);
 	public abstract ArrayList<String> getTypeE();
 	
 	public boolean compareField(String type, TreeMap<String, String> item)

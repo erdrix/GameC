@@ -29,14 +29,13 @@ public abstract class EcartScore extends Score<Integer>{
 		// METHODES
 	public int getScore(DemandMethods myDemand) {
 		int field = extractD(myDemand);
-		if(field == 0) return score = 0;
-		System.out.println(field);
+		//if(field == 0) return score = 0;
 		score = scoreMax;
 		
 		// Construction du tableau de transition
 		int nbTransitions = elements.size()-1;
 		transition = new double[nbTransitions];
-				
+		
 		transition[0]= firstTransition;
 		double rest = 1.0-firstTransition;
 
